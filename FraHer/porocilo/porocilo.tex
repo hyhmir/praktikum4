@@ -97,9 +97,52 @@ Iz grafov se že takoj lepo vidi, da so vrhovi razmaknjeni enakomerno, kar potrj
 \end{figure}
 
 
-Kar nam preostane storiti, je iz grafov kjer se to da (ne pri $40$ stopinjah) odčitati $\Delta E$, skupaj z napako, ki jo lahko ocenimo iz širine vrhov. Najprej bomo vse pozicije vrhov predstavili v tabeli \ref{vrhovi}.
+Kar nam preostane storiti, je iz grafov kjer se to da (ne pri $40$ stopinjah) odčitati $\Delta E$, skupaj z napako, ki jo lahko ocenimo iz širine vrhov. Najprej bomo vse pozicije vrhov predstavili v tabeli \ref{vrhovi}. Bralec naj je pozoren da smo navedli absolutne vrednosti napetosti. Napako napetosti vrhov ocenimo na $0,4\ V$ na podlagi oblike in širine vrhov.
 
-Kle pride tabela
+\newpage
 
+\begin{table}[ht]
+    \begin{center}
+    \begin{tabular}{l|lllllll}
+    T\textbackslash{}U & 1    & 2    & 3    & 4    & 5    & 6    & 7    \\ \hline
+    120                & 12,5 & 17,6 & 22,9 & /    & /    & /    & /    \\
+    140                & 12,3 & 17,4 & 22,5 & 27,7 & 32,9 & /    & /    \\
+    160                & /    & 17,4 & 22,5 & 27,6 & 32,6 & 37,7 & 43,3 \\
+    180                & /    & /    & 22,5 & 27,5 & 32,4 & 37,5 & 42,8
+    \end{tabular}
+    \caption{Napetost pri kateri se pojavijo vrhovi v voltih v odvisnosti od temperature v stopinjah celzija}
+    \label{vrhovi}
+    \end{center}
+\end{table}
+
+
+
+Sedaj lahko določimo $\Delta E$ pri vsaki temperaturi posebaj in nato še povprečje pri vseh temperaturah. Z upoštevanjem napak to naredimo na sledeč način:
+
+\begin{enumerate}
+    \item izračunamo razlike sosednjih vrednosti v tabeli. Statistika nas nauči, da imajo te razlike napako $\sqrt{2} \cdot 0,4$ kjer je $0,4$ napaka posamezne meritve,
+    \item pri vsaki temperaturi in nato še za vse skupaj izračunamo povprečje teh razlik. Napaka je tu izračunana kot $\sqrt{\frac{2}{N}}\cdot 0,4$, kjer je $N$ število razlik ki smo jih upoštevali,
+    \item glede na majhno količino podatkov lahko napaki prištejemo (pitagorejsko) kar tudi največji odmik podatkov od povprečja, oziroma, ko računamo povprečje čez vse temperature, lahko za to napako upoštevamo samo 2/3 razlik, saj je teh dovolj.
+\end{enumerate}
+
+To nas privede do tabele s poslednjimi rezultati \ref{rezultati}:
+
+\begin{table}[h]
+    \begin{center}
+    \begin{tabular}{l|l|l}
+    T [$^{\circ}C$]  & $\Delta E$  [$eV$] & $\sigma_E$ [$eV$] \\ \hline
+    120 & 5,2 & 0,5   \\
+    140 & 5,2 & 0,3   \\
+    160 & 5,2 & 0,7   \\
+    180 & 5,1 & 0,5   \\
+    vsi & 5,1 & 0,2  
+    \end{tabular}
+    \caption{Tabela rezultatov eksperimenta}
+    \label{rezultati}
+    \end{center}
+\end{table}
+
+
+Rezultati meritve so torej kar natančni, a očitno smo bili malo preveč optimistični pri določitvi napake posameznega vrha. Literatura namreč navaja vrednost: $\Delta E = 4,66\ eV$. Seveda je možno da se je pripetila tudi kakšna sistematična napaka, predvsem mogoče pri odčitavanju vrhov, saj so sami grafi precej grobi in je zato delo s kakršnim koli računalniškim orodjem zahtevno, delo \textit{na uč} pa seveda nenatančno.
 
 \end{document}
