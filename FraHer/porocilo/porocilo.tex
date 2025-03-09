@@ -28,6 +28,43 @@
 
 Frank-Hertzov poskus je zgodovinsko izredno pomemben za kvantno mehaniko saj je leta 1914 kot prvi potrdil diskretizacijo stanj atoma.
 
+Plinska trioda vsebuje kaplico živega srebra $Hg$, ki ima nad sabo pri temperaturi $200^{\circ}C$ tlak približno $1 \ kPa$. V cevi pospešujemo elektrone z napetostjo $U_1$ od katode proti anodni mrežici in jih nato lovimo s kolektorsko anodo, ki elektrone odbija z majhno napetostjo $U_2$. Namen tega je zmanševanje motenj ozadja. Kar merimo je tok elektronov $I_2$, ki uspe premagati potencial $U_2$ in doseči kolektorsko anodo.
+
+Med katodo in anodno mrežico se atomi pospešujejo, hkrati pa se trkajo v atome $Hg$. Trki so elastični ko je energija elektronov manjša od $\Delta E = E_1 - E_0$, kjer sta $E_0$ in $E_1$ osnovno in prvo vzbujeno stanje elektrona v zunanji lupini atoma $Hg$. Pri večjih energijah je možnost za neelastičen trk dovolj velika, tako da so v vmesnem prostoru med katodo in anodno mrežico l elektroni z energijo manjšo od $\Delta E$. To sicer velja le ob dovolj veliki gostoti atomov, tako da elektroni ne morejo dobiti več energije pred trkom. Pri manjši gostoti (nižji temperaturi) ali pri višji pospeševalni napetosti dobijo elektroni več energije in lahko atome vzbudijo tudi v druga vzburjena stanja ali jih celo ionizirajo - dobimo plazmo, ki jo lahko opazimo kot svetlobo v celici. Plazma ustvari popolnoma drugačne pogoje s katerimi se v tej vaji ne ukvarjamo.
+
+Ko spreminjamo napetost $U_1$ se spreminja povprečna kinetična energija elektronov, dokler ne dosežemo napetosti $U_1 = \Delta E / e_0$, kjer je $e_0$ osnovni naboj - naboj elektrona. Takrat pride do neelastičnih trkov in kinetična energija elektronov pade na $0$. Če to napetost še naprej večamo se elektroni, ki so se umes ustavili, spet pospešijo in če pridejo spet do energije $\Delta E$ lahko vzbudijo še en atom iz osnovnega stanja. To se seveda ponavlja, če še naprej večamo napetost.
+
+Nas zanimajo predvsem elektroni blizu anodnege mrežice - te elektrone polovimo z anodnim kolektorjem če le imajo dovolj kinetične energije za premostitev potenciala $U_2$ in so pravilno usmerjeni.
+
+Shema eksperimenta je prikazana na sliki \ref{shema}
+
+\begin{figure}[h]
+\begin{center}
+    \includegraphics[width=10 cm]{shema.png}
+    \caption{Shema Franck-Hertzovega poskusa. Vir: navodila}
+    \label{shema}
+\end{center}
+\end{figure}
+
+\section{Potrebščine}
+
+\begin{itemize}
+    \item Frank - Hertzova cev v termostiranem ohišju,
+    \item kontrolna enota za ustvarjanje žagaste napetosti ($U_1$), izvor izmenične napetosti za gretje katode ($U_H$), merjenje temperature,
+    \item digitalni osciloskop (Siglent SDS2202X-E),
+    \item USB ključek za shranjevanje podatkov.
+\end{itemize}
+
+\section{Naloga}
+
+\begin{enumerate}
+    \item Opazuj odvisnost toka $I_2$ med anodno mrežico in anodnim kolektorjem v odvisnosti od negativne napetost $U_1$ na katodi. Spreminjaj temperaturo in posebej natančno opazuj in izmeri položaje vseh vrhov v merjenih odvisnostih. Skiciraj odvisnosti pri petih različnih temperaturah, ko se slike primerno razlikujejo, to je približno pri temperaturah okoli $180$, $160$, $140$ in $120^{\circ}C$.
+    \item Natančno določi položaje vrhov $U_{1,n} = U_2 + n\Delta E/e_0$ pri posameznih temperaturah in rezultate vnesi v tabelo. Razlike napetosti med zaporednimi maksimumi ustrezajo energiji, ki jo izgubijo elektroni pri posameznem neelastičnem trku z atomom $Hg$. Določi $\Delta E = E_1 - E_0 = e_0 \Delta U_1$, kjer sta $E_1$ in $E_0$ energiji prvega vzbujenega in osnovnega stanja elektrona v zunanji lupini $Hg$.
+\end{enumerate}
+
+\section{Rezultati in analiza}
+
+
 
 
 \end{document}
