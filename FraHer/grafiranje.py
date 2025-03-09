@@ -38,7 +38,7 @@ for file in files:
     plt.legend()
     plt.grid()
     plt.savefig('FraHer/porocilo/' + str(file).strip('FraHer/data/CSV').strip('.csv') + '.pdf', dpi=1024)
-
+    #plt.show() #odkomentiraj samo ko rabiš odčitat maksimume
     plt.clf()
 
 
