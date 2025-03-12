@@ -1,0 +1,54 @@
+\documentclass[10pt]{article}
+\usepackage[slovene]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T2A]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage[version=4]{mhchem}
+\usepackage{stmaryrd}
+\usepackage{graphicx}
+\usepackage[export]{adjustbox}
+\graphicspath{ {./images/} }
+\usepackage{physics}
+\usepackage{geometry}
+\geometry{left=2cm,right=2cm,top=2cm,bottom=2cm}
+
+
+
+\title{Ultra zvok}
+\author{Samo Krejan}
+\date{marec 2025}
+
+
+\begin{document}
+\maketitle
+
+\section*{Uvod}
+
+Ultrazvok, kot vse nedestruktivne metode opazovanja sloni na pojavih absorbcije, sipanja in odboja valovanja v notranjosti telesa. Relavanten parameter je valovna dolžina uporabljeega valovanja, ki nam določa ločljivost, hkrati pa mora biti tudi absorbcija in sipanje zmerno. Poleg tega potrebujemo primerne vire in detektorje valovanja (ultrazvoka).
+
+Seveda se ultrazvok že dolgo uporablja v medicini, poleg tega pa je zelo uporaben tudi v kovinski industriji za zaznavanje nečistoč v npr.: blokih železa. Ultrazvok s frekvenco nekaj $MHz$ ima v večini snovi valovno dolžino okoli milimetra, kar zadostuje za opazovanje človeškega telesa ter za analizo jeklenih blokov. Merjenje jakosti odbojev ultrazvoka v različnih globinah merjenca je najbolj pogost način meritve. V tem primeru merimo čas, ki ga valovanje porabi od izvora do nehomogenosti, ki valovanje delno odbija, in nazaj do detektorja. Meritev časa nam omogoča pošiljanje sunkov ultrazvočnega valovanja, s čimer je taka priprava močno podobna radarju. Za izvor uporabimo kar piezo kristal, ki odda le kratek sunek, dolg nekaj valovnih dolžin, nato pa meri jakost odbitega signala v odvisnosti od časa. Isti piezokristal lahko uporabimo tudi kot sprejemnik valovanaj, s čemer dobimo eno-dimenzionalni prerez opazovanega telesa. Če uporabimo večje število izvorov in detektojev (npr.: 256) lahko dobimo dvo-dimenzionalni presek. To uporabljajo na primer v ginekologiji.
+
+Moderne ultrazvočne priprave omogočajo tudi merjenje premikov frekvence kot posledico Dopllerjevega pojava, s čimer lahko analiziramo tudi premikanje teles (nehomogenosti). Seveda uporabljajo tudi drugačne metode.
+
+Za nas zanimivo je tudi določanje hitrosti ultrazvoka v snovi saj je le-ta povezana z različnimi lastnostmi snovi. V homogenih snoveh lahko tako na primer določimo prožni modul $E$, strižni modul $G$ in pa Poissonovo število $\mu$. Velikrat smo recimo že videli s kakšno hitrostjo $c$ se širi vaovanje po tanki palici z gostoto $\rho$ (\ref{tanka}):
+
+\begin{equation}
+    c^{2} = \frac{E}{\rho}
+    \label{tanka}
+\end{equation}
+V razsežnem sredstvu je stvar nekoliko drugačna. Hitrost širjenja valovanja namreč opiše enačba (\ref{razsežna})
+
+\begin{equation}
+    c^{2} = \frac{E(1-\mu)}{\rho(1+\mu)(1-2\mu)}
+    \label{razsežna}
+\end{equation}
+Obe ti enačbi veljata le za longitudinalno valovanje. Pri transferzalnem je zadeva še nekoliko drugačna, saj je tam vseskupaj odvisno bolj od strižnega modula. Enačba za hitrost tam torej izgleda kot (\ref{trans}).
+
+\begin{equation}
+    c^{2} = 
+    \label{trans}
+\end{equation}
+
+\end{document}
