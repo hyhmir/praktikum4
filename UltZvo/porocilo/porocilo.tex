@@ -84,12 +84,112 @@ Hitrost transferzalnega valovanja v tanki palici, je še bolj zakomplicirana, a 
 
 \section{Rezultati in analiza}
 
-Najprej smo izmerili daljšo in krajšo višino kalibracijskega bloka: $h = 10,020 \pm 0,002\ cm$ in $h' = 9,118\pm 0,002\ cm$. Z ultrazvokom smo izmerili čas med prvim in drugim odbojem. Čas prevega in drugega odboja, razlika v časih in preračunana hitrost zvoka v jeklu so podani v tabeli \ref{blok-tabela}. Hitrost valovanja je izračunana kot $c = \frac{\Delta t}{2h}$ saj signal potuje v obe smeri.
-\bigskip
-kle pride tabela type shi
-\bigskip
+Najprej smo izmerili daljšo in krajšo višino kalibracijskega bloka: $h = 10,020 \pm 0,002\ cm$ in $h' = 9,118\pm 0,002\ cm$. Z ultrazvokom smo izmerili čas med prvim in drugim odbojem. Čas prevega in drugega odboja, razlika v časih in preračunana hitrost zvoka v jeklu so podani v tabeli 1. Hitrost valovanja je izračunana kot $c = \frac{\Delta t}{2h}$ saj signal potuje v obe smeri.
+\begin{table}[h]
+\begin{center}
 
-Za tem smo opazovali odboj ultra zvoka na tanki zarezi. Signal, ki smo ga prejeli je prikazan na grafu \ref{reža}. Iz grafa odčitamo po dva odboja za tri različne signale: na večji širina, na manjši širini in na reži. Časi signalov so v tabeli \ref{reža-tabela}
+\begin{tabular}{l|l|l}
+Količina          & daljša širina              & krajša širina              \\ \hline
+prvi odboj        & $3,551\pm 0,002\ 10^{-5}s$ & $3,241\pm 0,002\ 10^{-5}s$ \\
+drugi odboj       & $6,929\pm 0,002\ 10^{-5}s$ & $6,314\pm 0,002\ 10^{-5}s$ \\
+čas med odbojema  & $3,378\pm 0,003\ 10^{-5}s$ & $3,073\pm 0,003\ 10^{-5}s$ \\
+debelina          & $10,020\pm 0,002\ cm$      & $9,118\pm 0,002\ cm$       \\
+hitrost valovanja & $5993\pm 5\ m/s$           & $5994\pm 5\ m/s$          
+
+
+\end{tabular}
+\label{blok-tabela}
+\caption{tabela podatkov}
+\end{center}
+\end{table}
+
+\noindent Za tem smo opazovali odboj ultra zvoka na tanki zarezi. Signal, ki smo ga prejeli je prikazan na grafu \ref{reža}. Iz grafa odčitamo po dva odboja za tri različne signale: na večji širina, na manjši širini in na reži. Časi signalov so v tabeli 2.
+
+\begin{figure}[ht]
+\begin{center}
+    \includegraphics[width=8.3cm]{reza.png}
+    \label{reža}
+    \caption{Graf signala na tanki reži}
+\end{center}
+\end{figure}
+
+\begin{table}[h]
+\begin{center}
+\begin{tabular}{l|l|l|l}
+količina    & odboj 1 (daljša širina)    & odboj 2 (krajša širina)    & odboj 3 (reža)             \\ \hline
+prvi odboj  & $3,614\pm 0,002\ 10^{-5}s$ & $3,280\pm 0,002\ 10^{-5}s$ & $3,082\pm 0,002\ 10^{-5}s$ \\
+drugi odboj & $6,672\pm 0,002\ 10^{-5}s$ & $6,378\pm 0,002\ 10^{-5}s$ & $6,164\pm 0,002\ 10^{-5}s$
+
+\end{tabular}
+\label{reža-tabela}
+\caption{tabela podatkov}
+\end{center}
+\end{table}
+
+
+\noindent Da izračunamo globino reže se osredotočimo samo na prvi odboj. Ker že poznamo velikost bloka in hitrost ultrazvoka v bloku, lahko računamo globino po formuli \ref{globina-reže}
+
+\begin{equation}
+    h = \frac{1}{2}c(t_{rob} - t_{reza}) = 1,578\pm 0,009\ cm
+    \label{globina-reže}
+\end{equation}
+Globinsko ostrino lahko določimo kot polovico širine signala. To seveda preračunamo iz časa v dolžino, kjer upoštevamo, da signal prepotuje dvojno pot (tja in nazaj).
+Dobimo vrednost $\Delta h = 1,13 \pm 0,02 cm$.
+
+V nadaljevanju smo merili hitrost valovanja v jeklu, aluminiju in medenini s pomočjo interferometra. Čez meritve razdalje smo "fittali" premico s \textit{pythonom}, ki nam je podala povprečne vrednosti razlik skupaj z napako. Te rezultate prikažemo v tabeli 3.
+
+\begin{center}
+\begin{table}[h]
+    \begin{center}
+    \begin{tabular}{l|l|l|l}
+    tip valovanja  & jeklo {[}cm{]}  & aluminij {[}cm{]} & medenina {[}cm{]} \\ \hline
+    longitudinalno & $0,64 \pm 0,04$ & $0,58\pm 0,05$    & $0,80\pm 0,09$    \\
+    transferzalno  & $1,17\pm 0,06$  & $1,24\pm 0,06$    & /                
+    \end{tabular}
+\end{center}
+    \label{interferometer-tabela}
+    \caption{tabela podatkov}
+\end{table}
+\end{center}
+Za nadalnje račune potrebujemo še hitrost ultrazvoka v vodi. To dobimo po enačbi podani v navodilih (\ref{hitrost}) in s podatkom, da je bila temperatura vode $T = 22,6 ^{\circ}C$.
+
+\begin{equation}
+    c_v = c_0 + k(T-T_0) = 1484,1 \ m/s
+    \label{hitrost}
+\end{equation}
+Posamezne hitrosti nato računamo po enačbi \ref{hubahuba}:
+
+\begin{equation}
+    c = c_v \frac{d}{d_v}
+    \label{hubahuba}
+\end{equation}
+Strižni modul, Poissonovo število in Youngov modul lahko nato preprosto izračunamo po obrazcih \ref{šabašaba}:
+
+\begin{equation}
+    \begin{aligned}
+        G &= \rho c_{trans}^2\\
+        \mu &= \frac{1-(c_{lang}/c_{trans})^2/2}{1-(c_{lang}/c_{trans})^2}\\
+        E &= 2G(1+\mu) 
+    \end{aligned}
+    \label{šabašaba}
+\end{equation}
+Izračunane podatke predstavimo v tabeli 4.
+
+\begin{table}[h]
+    \begin{center}
+    \begin{tabular}{l|l|l|l}
+    količina              & jeklo          & aluminij       & medenina      \\\hline
+    $c_{lang}$ {[}m/s{]}  & $5800\pm 200$  & $6400\pm 200$  & $4600\pm 400$ \\
+    $c_{trans}$ {[}m/s{]} & $3200\pm 100$  & $3000\pm 100$  & /             \\
+    $G$ {[}GPa{]}         & $80\pm 2$      & $25\pm 1$      & /             \\
+    $\mu$                 & $0,29\pm 0,02$ & $0,36\pm 0,01$ & /             \\
+    $E$ {[}GPa{]}         & $200\pm 10$    & $67\pm 3$      & /            
+    \end{tabular}
+    \caption{tabela podatkov}
+    \end{center}
+\end{table}
+\newpage
+Te podatki se zelo dobro skladajo z literaturo, tako da lahko rečemo, da je bila vaja uspešna. Če bi si želeli zmanjšati napake meritev, bi to lahko naredili z natančnejšo meritvijo dolžin pri interferometru. Ocenjujem, da bi lahko napako znižali za približno faktor 10.
 
 
 

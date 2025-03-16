@@ -12,7 +12,7 @@ files.sort(key=str.lower)
 print(files)
 
 
-file = files[2] #spreminjaj indeks za obdelavo posamezne meritve
+file = files[0] #spreminjaj indeks za obdelavo posamezne meritve
 
 print(file)
 
