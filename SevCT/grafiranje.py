@@ -9,7 +9,8 @@ plt.style.use('science')
 
 files = glob.glob("SevCT/data/*.csv")
 
-podatki = files[1]
+podatki = files[2]
+print(files)
 
 data = pd.read_csv(podatki)
 
@@ -65,4 +66,25 @@ plt.title('Upor žarilne nitke v odvisnosti od temperature')
 plt.xlabel('$T\ [K]$')
 plt.ylabel('$R\ [\Omega]$')
 plt.savefig('SevCT/porocilo/upor.pdf', dpi=1024)
+
+plt.clf()
+
+
+# računanje in grafiranje prepustnosti
+
+data['prepustnost'] = (data['moč (silicij)'] - data['moč (ščit)'].mean()) / (data['moč (brez)'] - data['moč (ščit)'].mean())
+data['prerr'] = data['prepustnost']*(0.5e-5/data['moč (brez)'].abs() + 0.5e-5/data['moč (silicij)'].abs() + 0.1).abs() # dont ask me how i got those numbers
+data.loc[data['prerr'] > 0.6, 'prerr'] = 0.6
+df = pd.read_csv(files[1])
+
+plt.errorbar(data['T'][1:,], data['prepustnost'][1:,], xerr=data['errT'][1:,], yerr=data['prerr'][1:,], fmt='o', label='Izmerjena odvisnost') # prvi data point je fucked
+plt.plot(df['Temperatura [K]'], df['prepustnost (brez odbojev)'], label='Izračunano (brez odbojev)')
+plt.plot(df['Temperatura [K]'], df['prepustnost (z odboji)'], label='Izračunano (z odboji)')
+plt.grid()
+plt.legend(loc='upper left')
+plt.title('Prepustnost silicija v odvisnosti od temperature')
+plt.xlabel('$T\ [K]$')
+plt.ylabel('prepustnost $\\tau$')
+plt.ylim(0.2, None)
+plt.savefig('SevCT/porocilo/prepustnost.pdf', dpi=1024)
 

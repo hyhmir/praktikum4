@@ -145,7 +145,46 @@ Linearno odvisnost upora in temperature lahko opišemo z enačbo \ref{lin-upor}:
     R = m T + b
     \label{lin-upor}
 \end{equation}
-kjer smo s Pythonom odčitali $m = 0.720\ \Omega /K$ in $b = -308.5\ \Omega$. Predvsem vrednost $b$ nam da misliti, da linearna odvisnost ne more veljati na širokem razponu temperatur.
+kjer smo s Pythonom odčitali $m = 0.720\ \Omega /K$ in $b = -308.5\ \Omega$. Predvsem vrednost $b$ nam da misliti, da linearna odvisnost ne more veljati na širokem razponu temperatur kar je spet še en možen razlog za odstopanje točke pri sobni temperaturi.
+
+\newpage
+
+\noindent Preostane še raziskati, kako je prepustnost silicija odvisna od temperature. Teorija opisana v navodilih porodi naslednje rezultate predstavljene v tabeli \ref{prepustnost-teo}:
+
+\begin{table}[!ht]
+    \centering
+    \begin{tabular}{c|c|c}
+        Temperatura [K] & prepustnost (brez odbojev) & prepustnost (z odboji) \\ \hline
+        1500 & 0.98 & 0.51 \\ 
+        1700 & 0.95 & 0.50 \\ 
+        1900 & 0.92 & 0.48 \\ 
+        2100 & 0.88 & 0.46 \\ 
+        2300 & 0.84 & 0.44 \\ 
+        2500 & 0.79 & 0.41 \\ 
+        2700 & 0.74 & 0.39 \\ 
+        2900 & 0.69 & 0.36 \\ 
+        3100 & 0.64 & 0.33 \\ 
+    \end{tabular}
+    \caption{Tabela odvisnosti prepustnosti od temperature ob (ne)upoštevanju odbojev}
+    \label{prepustnost-teo}
+\end{table}
+
+\noindent Prepustnost pa lahko seveda izračunamo iz naših eksperimentalnih rezultatov. Izračuna se jo namreč preprosto preko enačbe \ref{prep}
+
+\begin{equation}
+    \tau = \frac{P_{si}}{P_{brez}}
+    \label{prep}
+\end{equation}
+
+Izmerjene in izračunane vrednosti tako prikažemo na grafu \ref{končn}, kjer vidimo, da se izmerjene vrednosti zelo dobro (znotraj okvira napake) strinjajo s teorijo kjer se upoštevajo odboji na meji med silicijem in zrakom. S tem smo dokaj sigurni, da je bil eksperiment uspešen.
+
+\begin{figure}[ht]
+\begin{center}
+    \includegraphics[width=8cm]{prepustnost.pdf}
+    \caption{Teoretična in izmerjena prepustnost v odvisnosti od temperature}
+    \label{končn}
+\end{center}
+\end{figure}
 
 
 
