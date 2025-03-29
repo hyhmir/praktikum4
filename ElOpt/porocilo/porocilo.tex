@@ -11,6 +11,7 @@
 \usepackage[export]{adjustbox}
 \graphicspath{ {./images/} }
 \usepackage{physics}
+\usepackage{}
 \usepackage{geometry}
 \geometry{left=2cm,right=2cm,top=2cm,bottom=2cm}
 
@@ -25,7 +26,16 @@
 
 Z zunanjim električnim poljem lahko navadno vplivamo na strukturo snovi. V kristalih naprimer tako lahko spremenimo obliko osnovne celice, v tekočinah lahko pride do spremembe gostote in orientacijskega urejanja molekul ali pa celo do spreminjanja oblike posameznih molekul. Te spremembe seveda vplivajo tudi na optične lastnosti snovi. Mi se zanimamo za vpliv statičnih električnih polj na optične lastnosti snovi in temu rečemo \textit{elektrooptični pojav}. Če bi se zanimali za nestatična električna polja, bi bila to razprava \textit{nelinearne optike}.
 
-Poznamo linearni elektrooptični pojav, ki se pojavi zgolj v anizotropnih snoveh, ter kvadratni elektrooptični pojav, ki ga lahko najdemo v vseh materialih. V splošnem, bi za opis elektrooptičnega pojava potrebovali tenzorje, a ker je naša keramika homogena in simetrična ob transformaciji $(x,y,z) \rightarrow (-x, -y,-z)$, zaradi česar se s tenzorji ne rabimo ukvarjati in je za to keramiko mogoč le kvadratni elektrooptični pojav.
+Poznamo linearni elektrooptični pojav, ki se pojavi zgolj v anizotropnih snoveh, ter kvadratni elektrooptični pojav, ki ga lahko najdemo v vseh materialih. V splošnem, bi za opis elektrooptičnega pojava potrebovali tenzorje, a ker je naša keramika homogena in simetrična ob transformaciji $(x,y,z) \rightarrow (-x, -y,-z)$, zaradi česar se s tenzorji ne rabimo ukvarjati in je za to keramiko mogoč le kvadratni elektrooptični pojav. Zunanje elektroično polje zlomi simetrijo izotropne keramike, zato ločimo dve spremembi lomnega količnika: sprememba za svetlobo ki je polarizirana vzporedno z električnim poljem in za svetlobo, ki je nanj pravokotno polarizirana. 
+
+V keramiko posvetimo z svetlobo z valovno dolžino $\lambda$ in variiramo zunanje električno polje jakosti $E$. Spreminjata se lomna količnika vzporedno $n_{\parallel}$ in pravokotno $n_{\perp}$ z smerjo polja. Oba se spreminjata s kvadratom električnega polja. Ponavadi nas ne zanima absolutna vrednost količnikov pač pa zgolj razlika med njima. To opisuje elektrooptični pojav poimenovan po Johnu Kerru \ref{Kerru}:
+
+\begin{equation}
+    n_{\parallel} - n_{\perp} = B\lambda E
+    \label{Kerru}
+\end{equation}
+Konstanto $B$ imenujemo Kerrova konstanta. Elektrooptični pojav je osnova mnogih tehnologij, vse od atenuatorjev, do leč s spremenjivo goriščno razdaljo, tudi pri zapisovanju in branju optičnih informacij. 
+
 
 \section{Potrebščine}
 
