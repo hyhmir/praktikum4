@@ -13,6 +13,9 @@
 \usepackage{physics}
 \usepackage{geometry}
 \geometry{left=2cm,right=2cm,top=2cm,bottom=2cm}
+\usepackage{graphicx}   % For \resizebox
+\usepackage{subcaption} % For sub-tables
+\usepackage{tabularx}   % For equal-width columns
 
 \title{\textbf{Spektrometer}}
 \author{Samo Krejan}
@@ -115,6 +118,92 @@ Pri nadalnjih meritvah smo merili kote in z umeritveno krivuljo določali valovn
 \caption{živo srebro}
 \label{Hg}
 \end{table}
+
+\newpage
+
+\noindent Za tem smo merili spektre različnih svetlečih diod. Te spektri so bili zvezni a omejeni, izmerili smo maksimalno in minimalno valovno dolžino in nato izračunali povprečje in razpon. Vsi te podatki so prikazani v tabeli \ref{led}:
+
+\begin{table}[!ht]
+\centering
+\begin{tabular}{c||c|c|c|c|c|c}
+    barva & min kot & max kot & val max & val min & val mean & val width \\\hline \hline
+    modra & 69.80+/-0.10 & 71.90+/-0.10 & 421+/-6 & 595+/-14 & 508+/-8 & 174+/-15 \\
+    rumena & 69.80+/-0.10 & 70.20+/-0.10 & 547+/-10 & 595+/-14 & 571+/-9 & 48+/-18 \\
+    rdeča & 69.40+/-0.10 & 70.00+/-0.10 & 569+/-12 & 669+/-26 & 619+/-14 & 100+/-29 \\
+    zelena & 69.60+/-0.10 & 70.60+/-0.10 & 509+/-8 & 626+/-18 & 568+/-10 & 117+/-20 \\
+\end{tabular}
+\caption{Meritev svetlečih diod, enote kota so stopinje, enote valovnih dolžin pa nanometri}
+\label{led}
+\end{table}
+
+\noindent Pri wolframovi žarnici smo opazovali zvezen spekter bele svetlobe. Na oko smo določili meje med različnimi barvami. Ker je to zgolj ocena in ker sem rahlo barvno slep so rezultati podani brez napake v tabeli \ref{wolf}
+
+\begin{table}[!ht]
+\centering
+\begin{tabular}{c|c|c}
+    kot & valovna dolžina & barva \\\hline
+    69.4 & 669 & \adjustbox{raise=-5pt}{rdeča} \\
+    69.8 & 595 & \adjustbox{raise=-5pt}{rumena} \\
+    70.0 & 569 & \adjustbox{raise=-5pt}{zelena} \\
+    70.8 & 493 & \adjustbox{raise=-5pt}{modra} \\
+    71.9 & 421 & \adjustbox{raise=-5pt}{vijolična} \\
+    72.7 & 381 & \adjustbox{raise=-5pt}{} \\
+\end{tabular}
+\caption{Meje med barvami v zveznem spektru (subjektivno)}
+\label{wolf}
+\end{table}
+
+\noindent Preostane nam zgolj še izmeriti emisijski spekter He in Ne ter absorbcijski spekter NO2. Izmerjeni spektri so prikazani v tabelah \ref{He}, \ref{Ne} in \ref{NO2}:
+
+\begin{center}
+% Adjust widths to fit your content (sum < 1\textwidth)
+\begin{minipage}{0.3\textwidth}
+\centering
+\begin{tabular}{c|c}
+    kot & valovna dolžina \\\hline
+    69.50+/-0.10 & 645+/-21 \\
+    69.80+/-0.10 & 595+/-14 \\
+    70.10+/-0.10 & 557+/-11 \\
+    71.30+/-0.10 & 457+/-7 \\
+    71.40+/-0.10 & 451+/-6 \\
+    71.60+/-0.10 & 439+/-6 \\
+    71.90+/-0.10 & 421+/-6 \\
+\end{tabular}
+\captionof{table}{He spekter}
+\label{He}
+\end{minipage}%
+\hfill
+\begin{minipage}{0.3\textwidth}
+\centering
+\begin{tabular}{c|c}
+    kot & valovna dolžina \\\hline
+    69.70+/-0.10 & 610+/-16 \\
+    70.20+/-0.10 & 547+/-10 \\
+    70.40+/-0.10 & 527+/-9 \\
+    70.80+/-0.10 & 493+/-8 \\
+    71.60+/-0.10 & 439+/-6 \\
+\end{tabular}
+\captionof{table}{Ne spekter}
+\label{Ne}
+\end{minipage}%
+\hfill
+\begin{minipage}{0.3\textwidth}
+\centering
+\begin{tabular}{c|c}
+    kot & valovna dolžina \\\hline
+    69.70+/-0.10 & 610+/-16 \\
+    70.00+/-0.10 & 569+/-12 \\
+    70.40+/-0.10 & 527+/-9 \\
+    70.60+/-0.10 & 509+/-8 \\
+    70.70+/-0.10 & 501+/-8 \\
+    71.10+/-0.10 & 471+/-7 \\
+    71.20+/-0.10 & 464+/-7 \\
+\end{tabular}
+\captionof{table}{NO2 spekter}
+\label{NO2}
+\end{minipage}
+\end{center}
+
 
 
 \end{document}

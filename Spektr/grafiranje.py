@@ -52,10 +52,14 @@ a = ufloat(108.582, 0)
 b = ufloat(0.051, 0)
 c = ufloat(-2.834, 0)
 
+# a = 108.582 # za wolfram
+# b = 0.051
+# c = -2.834
+
 def inv_fit(x):
     return ((-c-(c**2-4*b*(a-x))**0.5)/(2*b))**2
 
-obdelava = pd.read_csv(files[2], names=['kot', 'barva']) # ustrezno spreminjaj indeks pri obdelavi
+obdelava = pd.read_csv(files[6], names=['kot']) # ustrezno spreminjaj indeks pri obdelavi, nekje je treba tut razširit names
 
 
 obdelava['uvalue'] = unumpy.uarray(obdelava['kot'], 0.1)
@@ -74,6 +78,31 @@ display = pd.DataFrame()
 display['kot'] = np.sort(np.array(obdelava['uvalue']))
 display['val'] = results
 print(display.to_latex(index=False))
+
+# LED obdelava
+
+# led = pd.read_csv(files[3])
+# led['umax'] = unumpy.uarray(led['max'], 0.1)
+# led['umin'] = unumpy.uarray(led['min'], 0.1)
+# led['val max'] = [inv_fit(x) for x in led['umin']]
+# led['val min'] = [inv_fit(x) for x in led['umax']]
+# led['val mean'] = led['val max']/2 + led['val min']/2
+# led['val width'] = -led['val max'] + led['val min']
+
+# del led['max']
+# del led['min']
+
+# print(led.to_latex(index=False))
+
+# wolfram
+
+# wolf = pd.read_csv(files[4], names=['kot'])
+# wolf['val']= [inv_fit(x) for x in wolf['kot']]
+# wolf['val'] = wolf['val'].round(0)
+# wolf['kot'] = wolf['kot'].round(1)
+# wolf['barva'] = ['rdeča', 'rumena', 'zelena', 'modra', 'vijolična', '']
+# print(wolf)
+# print(wolf.to_latex(index=False))
 
 
 
