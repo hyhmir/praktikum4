@@ -5,6 +5,9 @@ import glob
 import os
 import scienceplots
 from scipy.optimize import curve_fit
+from scipy.optimize import fsolve
+from uncertainties import ufloat
+from uncertainties import unumpy
 
 plt.style.use('science')
 
@@ -31,14 +34,46 @@ print("Fitted parameters with errors:")
 for i, (param, err) in enumerate(zip(popt, perr)):
     print(f"Parameter {i}: {param:.3f} ± {err:.3f}")
 
-x = np.linspace(434.2, 656.9, 1000)
+#x = np.linspace(434.2, 656.9, 1000)
 
-plt.errorbar(cali['Hg val'], cali['Hg kot'], yerr=0.1, fmt='o', label='$Hg$')
-plt.errorbar(cali['H2 val'], cali['H2 kot'], yerr=0.1, fmt='o', label='$H_2$')
-plt.plot(x, fit(x, *popt), 'r-', label='Fit')
-plt.title('Umeritvena krivulja')
-plt.legend()
-plt.grid()
-plt.xlabel('$\lambda\ [nm]$')
-plt.ylabel('$\phi\ [^{\circ}]$')
-plt.savefig('Spektr/porocilo/kalibracija.pdf', dpi=1024)
+# plt.errorbar(cali['Hg val'], cali['Hg kot'], yerr=0.1, fmt='o', label='$Hg$')
+# plt.errorbar(cali['H2 val'], cali['H2 kot'], yerr=0.1, fmt='o', label='$H_2$')
+# plt.plot(x, fit(x, *popt), 'r-', label='Fit')
+# plt.title('Umeritvena krivulja')
+# plt.legend()
+# plt.grid()
+# plt.xlabel('$\lambda\ [nm]$')
+# plt.ylabel('$\phi\ [^{\circ}]$')
+# plt.savefig('Spektr/porocilo/kalibracija.pdf', dpi=1024)
+# plt.clf()
+
+# če upoštevamo napako parametrov postane napaka blizu 5 % - neuporabno
+a = ufloat(108.582, 0)
+b = ufloat(0.051, 0)
+c = ufloat(-2.834, 0)
+
+def inv_fit(x):
+    return ((-c-(c**2-4*b*(a-x))**0.5)/(2*b))**2
+
+obdelava = pd.read_csv(files[2], names=['kot', 'barva']) # ustrezno spreminjaj indeks pri obdelavi
+
+
+obdelava['uvalue'] = unumpy.uarray(obdelava['kot'], 0.1)
+
+
+results = [inv_fit(x) for x in obdelava['uvalue']]
+
+print(obdelava)
+
+for result in results:
+    print(f"Result: {result}")
+
+results.sort(reverse=True)
+
+display = pd.DataFrame()
+display['kot'] = np.sort(np.array(obdelava['uvalue']))
+display['val'] = results
+print(display.to_latex(index=False))
+
+
+
