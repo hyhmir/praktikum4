@@ -33,7 +33,12 @@ for i, (param, err) in enumerate(zip(popt, perr)):
 
 x = np.linspace(434.2, 656.9, 1000)
 
-# plt.errorbar(cali1['val'], cali1['kot'], yerr=cali1['kot err'], fmt='o', label='Data')
-# plt.plot(x, fit(x, *popt), 'r-', label='Fit')
-# plt.legend()
-# plt.show()
+plt.errorbar(cali['Hg val'], cali['Hg kot'], yerr=0.1, fmt='o', label='$Hg$')
+plt.errorbar(cali['H2 val'], cali['H2 kot'], yerr=0.1, fmt='o', label='$H_2$')
+plt.plot(x, fit(x, *popt), 'r-', label='Fit')
+plt.title('Umeritvena krivulja')
+plt.legend()
+plt.grid()
+plt.xlabel('$\lambda\ [nm]$')
+plt.ylabel('$\phi\ [^{\circ}]$')
+plt.savefig('Spektr/porocilo/kalibracija.pdf', dpi=1024)
