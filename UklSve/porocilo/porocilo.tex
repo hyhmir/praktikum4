@@ -23,14 +23,41 @@
 
 \section{Uvod}
 
+Svetloba se na robu ukloni. Če jo pošljemo skozi $N$ rež z debelino $D$ in na razmiku $d$ dobimo odvisnost svetlobnega toka od kota kota \ref{enačba1}
+
+\begin{equation}
+    I(\theta) = I_0 \left( \frac{\sin(\pi D \sin(\theta)/\lambda)}{\pi D \sin(\theta)/\lambda}\frac{\sin(N\pi d \sin(\theta)/\lambda)}{\sin(\pi d \sin(\theta)/\lambda)} \right)^2
+    \label{enačba1}
+\end{equation}
+kjer je $\lambda$ valovna dolžina svetlobe. Pri majhnih kotih lahko aproksimiramo $\sin(\theta) = \theta$, kot pa kot $\theta = x/s$, kjer je $x$ oddaljenost od središčne lege, $s$ pa razdalja od reže do zaslona. Na okrogli odprtini dobimo kolobarjast vzorec (Fresnelove cone). V temu primeru velja, da se minimum ali maksimum pojavi pri pogoju \ref{feri}:
+
+\begin{equation}
+    \frac{2\pi R_n^2}{4\lambda\zeta}=\frac{n\pi}{2}
+    \label{feri}
+\end{equation}
+kjer so $R_n$ polmeri fernelovih con.
+
 
 \section{Potrebščine}
+\begin{itemize}
+    \item HeNe laser z valovno dolžino 633 nm, nosilna plošča za laser in translator za zaslone,
+    \item par prizem v nosilcu za razširitev žarka,
+    \item zasloni z odprtinami, leča z nosilcem, ravno ogledalo z nosilcem,
+    \item x translator z montiranim fotodetektorjem in pretvornikom signalov,
+    \item prenosnik z ustrezno programsko opremo.
+\end{itemize}
 
 
 \section{Naloga}
 
-
+\begin{itemize}
+    \item Izmeri uklonsko sliko svetlobe za zasloni z režami. Uporabi zaslone z 1, 2, 3, 5 in 10 režami. Določi relativneintenzitete uklonskih slik. Določi širino rež $D$ in razdalje med njimi $d$.
+    \item Opazuj uklon na okrogli odprtini. Določi premer odprtine $2R$.
+\end{itemize}
+\newpage
 \section{Rezultati in analiza}
+
+
 
 
 \end{document}
