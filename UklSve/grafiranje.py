@@ -45,6 +45,9 @@ def fit(x, i, a, b, c):
     return i*(np.sinc(a * x))**2*(np.sinc(N*b*x)/np.sinc(b*x))**2 + c
 
 
+data = [None, data1, data2, data3, None, None, data5, None, None, None, None, None, data10]
+
+
 popt, pcov = curve_fit(fit, data1['x'], data1['I'], [0.086, 0.026, 0.097, 0.005], method='lm')#deep seek cooked here
 
 perr = np.sqrt(np.diag(pcov)) 
@@ -59,5 +62,5 @@ plt.plot(data1['x'], data1['I'], 'bo', label='podatki')
 plt.plot(data1['x'], fit(data1['x'], *popt), 'r-', label='fit')
 plt.legend()
 plt.grid()
-plt.title('')
+plt.title('Interferenčna slika ene in dveh rež')
 plt.show()
