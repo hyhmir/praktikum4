@@ -39,22 +39,25 @@ data3 = data3[(data3['x'] >= -75) & (data3['x'] <= 75)].reset_index(drop=True)
 data5 = data5[(data5['x'] >= -75) & (data5['x'] <= 75)].reset_index(drop=True)
 data10 = data10[(data10['x'] >= -75) & (data10['x'] <= 75)].reset_index(drop=True)
 
-N = 2
+N = 1
 
 def fit(x, i, a, b, c):
     return i*(np.sinc(a * x))**2*(np.sinc(N*b*x)/np.sinc(b*x))**2 + c
 
 
-popt, pcov = curve_fit(fit, data2['x'], data2['I'], [0.02, 0.01, 0.4, 0], method='trf')#deep seek cooked here
+popt, pcov = curve_fit(fit, data1['x'], data1['I'], [0.086, 0.026, 0.097, 0.005], method='lm')#deep seek cooked here
 
 perr = np.sqrt(np.diag(pcov)) 
+print(popt)
 
 print("Fitted parameters with errors:")
 for i, (param, err) in enumerate(zip(popt, perr)):
     print(f"Parameter {i}: {param:.3f} ± {err:.3f}")
 
 
-plt.plot(data2['x'], data2['I'], 'bo', label='data')
-plt.plot(data2['x'], fit(data2['x'], *[0.046, 0.026, 0.397, 0.012]), 'r-', label='initial guess')
+plt.plot(data1['x'], data1['I'], 'bo', label='podatki')
+plt.plot(data1['x'], fit(data1['x'], *popt), 'r-', label='fit')
 plt.legend()
+plt.grid()
+plt.title('')
 plt.show()
