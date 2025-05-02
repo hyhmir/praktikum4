@@ -45,8 +45,45 @@ def fit(x, i, a, b, c):
     return i*(np.sinc(a * x))**2*(np.sinc(N*b*x)/np.sinc(b*x))**2 + c
 
 
-data = [None, data1, data2, data3, None, None, data5, None, None, None, None, None, data10]
+data = [['mjav', 'mjav'], data1, data2, data3, ['mjav', 'mjav'], data5, ['mjav', 'mjav'], ['mjav', 'mjav'], ['mjav', 'mjav'], ['mjav', 'mjav'], data10] # debilno i know, ampak the only way this shit works
 
+
+pari = [(1,2), (2,3), (3,5), (5,10)]
+
+for par in pari:
+
+
+    plt.title(f'Interferenčna slika {par[0]} in {par[1]} rež')
+
+    N = par[0]
+    df = pd.DataFrame(data[N])
+    popt, pcov = curve_fit(fit, df['x'], df['I'], [0.086, 0.026, 0.097, 0.005], method='lm')
+
+    perr = np.sqrt(np.diag(pcov)) 
+
+    print(f"Fitted parameters with errors: {N}")
+    for i, (param, err) in enumerate(zip(popt, perr)):
+        print(f"Parameter {i}: {param:.3f} ± {err:.3f}")
+
+    plt.plot(df['x'], df['I'], 'o', label=f'podatki {N}')
+    plt.plot(df['x'], fit(df['x'], *popt), 'r-', label=f'fit {N}')
+
+    N = par[1]
+    df = pd.DataFrame(data[N])
+    popt, pcov = curve_fit(fit, df['x'], df['I'], [0.086, 0.026, 0.097, 0.005], method='lm')
+
+    perr = np.sqrt(np.diag(pcov)) 
+
+    print(f"Fitted parameters with errors: {N}")
+    for i, (param, err) in enumerate(zip(popt, perr)):
+        print(f"Parameter {i}: {param:.3f} ± {err:.3f}")
+
+    plt.plot(df['x'], df['I'], 'o', label=f'podatki {N}')
+    plt.plot(df['x'], fit(df['x'], *popt), 'grey', label=f'fit {N}')
+
+    plt.legend()
+    plt.grid()
+    plt.show()
 
 popt, pcov = curve_fit(fit, data1['x'], data1['I'], [0.086, 0.026, 0.097, 0.005], method='lm')#deep seek cooked here
 
@@ -58,7 +95,7 @@ for i, (param, err) in enumerate(zip(popt, perr)):
     print(f"Parameter {i}: {param:.3f} ± {err:.3f}")
 
 
-plt.plot(data1['x'], data1['I'], 'bo', label='podatki')
+plt.plot(data1['x'], data1['I'], 'o', label='podatki')
 plt.plot(data1['x'], fit(data1['x'], *popt), 'r-', label='fit')
 plt.legend()
 plt.grid()
