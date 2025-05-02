@@ -92,3 +92,35 @@ for par in pari:
 
 
 
+# fresnel type shi, kle je blo velik stvari hirej na roko preračunat
+
+lukna = pd.read_csv('/home/hyh/Documents/praktikum4/UklSve/data/lukna.csv')
+
+lukna_display = pd.DataFrame()
+lukna_display['tip'] = ['min', 'max', 'min', 'max']
+lukna_display['x'] = [15.7, 14.4, 12.0, 10.2]
+lukna_display['zp'] = lukna_display['x'] + 1.3
+lukna_display['zo'] = -lukna_display['x'] + 198.5
+lukna_display['1/zeta'] = 1/lukna_display['zo'] + 1/lukna_display['zp']
+print(lukna_display)
+
+def lin(x, a, b):
+    return a*x + b
+
+popt, pcov = curve_fit(lin, [1,2,3,4], lukna_display['1/zeta'], sigma=[0.001, 0.001, 0.002, 0.002], absolute_sigma=True)
+
+perr = np.sqrt(np.diag(pcov))
+print('lin fit:')
+for i, (param, err) in enumerate(zip(popt, perr)):
+    print(f"Parameter {i}: {param:.3f} ± {err:.3f}")
+
+x = np.linspace(0.8, 4.2, 1000)
+
+plt.title('Odvisnost $1/\zeta$ od številke fresnelove cone $n$')
+plt.ylabel('$1/\zeta$ [$cm^{-1}$]')
+plt.xlabel('$n$')
+plt.errorbar([1,2,3,4], lukna_display['1/zeta'], [0.001, 0.001, 0.002, 0.002], fmt='o', ms=2, label='meritev')
+plt.plot(x, lin(x, *popt), label='fit')
+plt.grid()
+plt.legend()
+plt.savefig('UklSve/porocilo/lin.pdf', dpi=1024)
