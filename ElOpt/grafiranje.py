@@ -62,3 +62,8 @@ plt.xlabel('kot [$^{\\circ}$]')
 plt.ylabel('itenziteta [relativne enote]')
 plt.savefig('ElOpt/porocilo/poli2.pdf', dpi=1024)
 plt.clf()
+
+kerr = pd.read_csv('ElOpt/data/moč-v-napetost1-keramika.txt', sep='\t', names=['V', 'P'])
+
+plt.plot(kerr['V'], kerr['P'])
+plt.show()
