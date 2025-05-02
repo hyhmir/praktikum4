@@ -44,7 +44,7 @@ N = 1
 def fit(x, i, a, b, c):
     if N ==1:
         return i*(np.sinc(a * x))**2 + c
-    return i*(np.sinc(a * x))**2*(np.sinc(N*b*x)/np.sinc(b*x))**2 + c
+    return i*(np.sinc(a * x))**2*(N*np.sinc(N*b*x)/np.sinc(b*x))**2 + c
 
 
 data = [['mjav', 'mjav'], data1, data2, data3, ['mjav', 'mjav'], data5, ['mjav', 'mjav'], ['mjav', 'mjav'], ['mjav', 'mjav'], ['mjav', 'mjav'], data10] # debilno i know, ampak the only way this shit works
@@ -124,3 +124,5 @@ plt.plot(x, lin(x, *popt), label='fit')
 plt.grid()
 plt.legend()
 plt.savefig('UklSve/porocilo/lin.pdf', dpi=1024)
+
+print(lukna_display.to_latex(index=False))
