@@ -38,4 +38,27 @@ plt.legend()
 plt.savefig('ElOpt/porocilo/poli1.pdf', dpi=1024)
 plt.clf()
 
+poli2_1 = pd.read_csv('ElOpt/data/-90do90-2poli.txt', sep='\t', names=['kot', 'damn'])
+poli2_2 = pd.read_csv('ElOpt/data/90do-90-2poli.txt', sep='\t', names=['kot', 'damn'])
+poli2 = pd.DataFrame()
+poli2['kot'] = poli2_1['kot']
+poli2['damn'] = poli2_1['damn'] + poli2_2['damn'] # zgolj nekaj lepšanja podatkov, dont sue me
+poli2['kot'] = 90 - poli2['kot']*5
 
+def fit_poli2(x, I_0, I_1, d):
+    return I_0 + I_1*np.sin(2*(np.pi/180)*x + d)**2
+
+popt, pcov = curve_fit(fit_poli2, poli2['kot'], poli2['damn'])
+
+perr = np.sqrt(np.diag(pcov))
+
+print(popt, perr)
+
+plt.plot(poli2['kot'], poli2['damn'], 'o', ms=2, label='meritve')
+plt.plot(kot, fit_poli2(kot, *popt), label='fit')
+plt.title('Odvisnost toka v odvisnosti od kota vmesnega polarizatorja')
+plt.grid()
+plt.xlabel('kot [$^{\\circ}$]')
+plt.ylabel('itenziteta [relativne enote]')
+plt.savefig('ElOpt/porocilo/poli2.pdf', dpi=1024)
+plt.clf()
