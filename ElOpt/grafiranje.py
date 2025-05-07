@@ -110,3 +110,10 @@ plt.legend()
 plt.savefig('ElOpt/porocilo/kerr.pdf')
 plt.clf()
 
+### tekoči kristal + poli
+
+tk_poli = pd.read_csv('ElOpt/data/-90do90-tekocikristal.txt', sep='\t', names=['kot', 'I'])
+tk_poli['kot'] = -90 + 5* tk_poli['kot']
+
+plt.plot(tk_poli['kot'], tk_poli['I'])
+plt.show()
