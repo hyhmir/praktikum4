@@ -143,12 +143,25 @@ tk = tk.iloc[2:-2]
 
 p = 1.532
 v = 1.706
+kot = np.linspace(-100, 100, 1000)
 
 def tk_fit(x, i0, i1, d):
-    return i0 + i1 * (np.sin(d * (np.sqrt(p**2 - np.sin(x/2)**2) - np.sqrt(v**2 - np.sin(x/2)**2))))**2
+    return i0 + i1 * (np.sin(d * (np.sqrt(p**2 - np.sin((np.pi / 180)*x)**2) - np.sqrt(v**2 - np.sin((np.pi / 180)*x)**2))))**2
 
-popt, pcov = 
+popt, pcov = curve_fit(tk_fit, tk['kot'], tk['I'], [1.2e-6, -4e-4, 16])
+
+perr = np.sqrt(np.diag(pcov))
+
+print('tk balerina:')
+print(popt, perr)
 
 
-plt.plot(tk['kot'], tk['I'])
-plt.show()
+plt.plot(tk['kot'], tk['I'], 'o', ms=2, label='meritve')
+plt.plot(kot, tk_fit(kot, *popt), label='fit')
+plt.title('Odvisnost toka od zasuka tekočega kristala')
+plt.grid()
+plt.legend()
+plt.xlabel('kot [$^{\\circ}$]')
+plt.ylabel('Intenziteta [relativne enote]')
+plt.savefig('ElOpt/porocilo/tk-balerina.pdf', dpi=1024)
+plt.clf()
