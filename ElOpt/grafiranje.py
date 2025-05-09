@@ -8,6 +8,7 @@ from scipy.optimize import curve_fit
 from scipy.optimize import fsolve
 from uncertainties import ufloat
 from uncertainties import unumpy
+from uncertainties import umath
 
 plt.style.use('science')
 
@@ -165,3 +166,11 @@ plt.xlabel('kot [$^{\\circ}$]')
 plt.ylabel('Intenziteta [relativne enote]')
 plt.savefig('ElOpt/porocilo/tk-balerina.pdf', dpi=1024)
 plt.clf()
+
+### izračun ekscentričnosti:
+
+p0 = ufloat(1.77e-6, 0.03e-6)
+p1 = ufloat(-8.1e-7, 0.4e-7)
+
+e = umath.sqrt(1-p0**2/(p0-p1)**2)
+print(e)

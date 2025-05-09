@@ -101,6 +101,97 @@ Spet uspešnost fita prikažemo na grafu. Glej graf \ref{2poli}:
 \end{center}
 \end{figure}
 
-S tem smo zaključili s prvim in drugim delom naloge. Sledila je meritev kerrove konstante za PLZT keramiko.
+S tem smo zaključili s prvim in drugim delom naloge. Sledila je meritev kerrove konstante za PLZT keramiko. Merili smo moč na fotodiodi v odvisnosti od napetosti na Kerrovi celici. V teoriji naj bi bili te dve količini povezani preko relacije \ref{fit1}:
+\begin{equation}
+    P(U) = P_0 \sin^2\left(\pi B L U^2/d^2 + \delta/2\right)
+    \label{fit1}
+\end{equation}
+A kot lahko vidimo na grafu \ref{kerr}, ta fit ni najboljši, a ga lahko popravimo tako, da upoštevamo nek efektiven padec napetosti pred Kerrovo celico. Torej relacijo bolje opiše \ref{fit2}:
+\begin{equation}
+    P(U) = P_0 \sin^2\left(\pi B L (U-U_0)^2/d^2 + \delta/2\right)
+    \label{fit2}
+\end{equation}
+
+\noindent Oba fita in meritve prikažemo na grafu \ref{kerr}, kjer se super vidi kako bolj uspešen je drugi fit \ref{fit2}.
+
+\begin{figure}[ht]
+\begin{center}
+    \includegraphics[width=10cm]{kerr.pdf}
+    \caption{Fit 1 ustreza enačbi \ref{fit1}, fit 2 pa enačbi \ref{fit2}. Na grafu vidimo tudi meritve}
+    \label{kerr}
+\end{center}
+\end{figure}
+
+\noindent Iz drugega fita lahko izluščimo tudi parametre:
+
+\begin{equation*}
+    P_0 = (8.84\pm 0.06) 10^{-6} A,\ \frac{\pi B L}{d^2} = (5.8\pm 0.1) 10^{-6}V^{-2},\ \delta = -0.37\pm 0.03,\ U_0 = (263\pm 6) V
+\end{equation*}
+
+\newpage
+\noindent Iz tega lahko izrazimo Kerrovo konstanto kot:
+
+\begin{equation*}
+    B = (2.27\pm 0.04) \cdot 10^{-9}\ m V^{-2}
+\end{equation*}
+
+\noindent V nadaljevanju smo Kerrovo celico zamenjali s tekočim kristalom. Od te točke naprej sam nisem imel preveč sreče z meritvami zato sem obdeloval podatke prijatelja Ruja, ki je svoje prijazno delil z menoj.
+
+Najprej smo merili eliptično polariziranost tekočega kristala, ki nastane zaradi dvolomnosti tekočega kristala. Na meritve smo fitali relacijo \ref{tk-poli} in nato fit skupaj z meritvami prikazali na grafu \ref{tkpoli}:
+
+\begin{equation}
+    P(\phi) = P_0 + P_1\ \sin^2 \left(\phi + \delta\right)
+    \label{tk-poli}
+\end{equation}
+
+\begin{figure}[ht]
+\begin{center}
+    \includegraphics[width=10cm]{tkpoli.pdf}
+    \caption{meritve in fit po enačbi \ref{tk-poli}}
+    \label{tkpoli}
+\end{center}
+\end{figure}
+O veljavnosti fita glede na graf bi se dalo mnogo diskutirati, a zaenkrat naj le povemo o parametrih, ki smo jih s pythonom izmerili:
+
+\begin{equation*}
+    P_0 = (1.77\pm 0.03)10^{-6}A,\ P_1 = (-8.1\pm 0.4)10^{-7}A,\ \delta = -0.44\pm 0.03
+\end{equation*}
+
+\noindent Torej imata lastni osi smer $-25.2^{\circ}$ in $64.8^{\circ}$. Prav tako lahko določimo ekscentričnost eliptičnosti polarizacije kot:
+
+\begin{equation*}
+    \epsilon = \sqrt{1-\frac{P_0^2}{(P_0 + P_1)^2}} = 0.73 \pm 0.01
+\end{equation*}
+čeprav, glede na uspešnost fita, se na te številke ne bi preveč naslajal.
+
+\newpage
+\noindent V zadnjem delu naloge je ostalo še izmeriti debelino ploščice tekočega kristala, tako da smo opazovali kaj se dogaja z intenziteto, ko vrtimo tekoči kristal okoli navpične osi. V teoriji bi morala prepuščena moč slediti enačbi \ref{last}:
+
+\begin{equation}
+    P(\phi) = P_0 + P_1 \sin^2\left(\frac{\pi d}{\lambda}(\sqrt{n_{\perp}^2 - \sin^2 \phi} - \sqrt{n_{\parallel}^2 - \sin^2\phi})\right)
+    \label{last}
+\end{equation}
+
+S to enačbo fitamo izmerjene podatke, ki jih skupaj s fitom prikažemo na grafu \ref{balet}.
+
+\begin{figure}[ht]
+\begin{center}
+    \includegraphics[width=10cm]{tk-balerina.pdf}
+    \caption{Meritve in fit po enačbi \ref{last}}
+    \label{balet}
+\end{center}
+\end{figure}
+Tudi tukaj hitro vidimo, da je fit precej uprašljiv, ampak vsaj v osrednjem območju deluje kar zanesljivo. Iz omenjenega fita izluščimo parametre:
+
+\begin{equation*}
+    P_0 = (1.55\pm 0.08)10^{-6} A,\ (-4 \pm 1) A, \ \frac{\pi d}{\lambda} = 15.6\pm 0.1
+\end{equation*}
+iz česar sledi da je debelina ploščice tekočega kristala:
+
+\begin{equation*}
+    d = (3.18\pm 0.02) \mu m
+\end{equation*}
+
+
 
 \end{document}
