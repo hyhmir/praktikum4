@@ -134,3 +134,21 @@ plt.ylabel('Intenziteta [relativne enote]')
 plt.legend()
 plt.savefig('ElOpt/porocilo/tkpoli.pdf', dpi=1024)
 plt.clf()
+
+### tekoči kristal - balerina
+
+tk = pd.read_csv('ElOpt/data/ruj-data/elopt_4_2nal.txt', sep='\t', names=['kot', 'I'])
+tk['kot'] = -110 + 5*tk['kot']
+tk = tk.iloc[2:-2]
+
+p = 1.532
+v = 1.706
+
+def tk_fit(x, i0, i1, d):
+    return i0 + i1 * (np.sin(d * (np.sqrt(p**2 - np.sin(x/2)**2) - np.sqrt(v**2 - np.sin(x/2)**2))))**2
+
+popt, pcov = 
+
+
+plt.plot(tk['kot'], tk['I'])
+plt.show()
