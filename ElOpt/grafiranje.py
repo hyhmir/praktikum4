@@ -107,13 +107,30 @@ plt.grid()
 plt.xlabel('Napetost [$V$]')
 plt.ylabel('Intenziteta [relativne enote]')
 plt.legend()
-plt.savefig('ElOpt/porocilo/kerr.pdf')
+plt.savefig('ElOpt/porocilo/kerr.pdf', dpi=1024)
 plt.clf()
 
 ### tekoči kristal + poli
 
-tk_poli = pd.read_csv('ElOpt/data/-90do90-tekocikristal.txt', sep='\t', names=['kot', 'I'])
-tk_poli['kot'] = -90 + 5* tk_poli['kot']
+tk_poli = pd.read_csv('ElOpt/data/ruj-data/elopt_4_1nal.txt', sep='\t', names=['kot', 'I'])
+tk_poli['kot'] = 90 - 5* tk_poli['kot']
 
-plt.plot(tk_poli['kot'], tk_poli['I'])
-plt.show()
+def fit_tk1(x,i0, i1, d):
+    return i0 + i1 * (np.sin(x + d))**2
+
+popt, pcov = curve_fit(fit_tk1, tk_poli['kot'], tk_poli['I'], [8e-7, 7e-5, -0.7])
+
+perr = np.sqrt(np.diag(pcov))
+
+print('tk poli:')
+print(popt, perr)
+
+plt.plot(tk_poli['kot'], tk_poli['I'], 'o', ms=2, label='meritve')
+plt.plot(kot, fit_tk1(kot, *popt), label='fit')
+plt.title('Odvisnost toka od zasuka polarizatorja')
+plt.grid()
+plt.xlabel('kot [$^{\\circ}$]')
+plt.ylabel('Intenziteta [relativne enote]')
+plt.legend()
+plt.savefig('ElOpt/porocilo/tkpoli.pdf', dpi=1024)
+plt.clf()
