@@ -63,7 +63,7 @@ print(popt, perr)
 
 plt.plot(poli2['kot'], poli2['damn'], 'o', ms=2, label='meritve')
 plt.plot(kot, fit_poli2(kot, *popt), label='fit')
-plt.title('Odvisnost toka v odvisnosti od kota vmesnega polarizatorja')
+plt.title('Odvisnost toka v odvisnosti od kota polarizatorja')
 plt.grid()
 plt.xlabel('kot [$^{\\circ}$]')
 plt.ylabel('itenziteta [relativne enote]')
