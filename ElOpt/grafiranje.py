@@ -116,7 +116,7 @@ tk_poli = pd.read_csv('ElOpt/data/ruj-data/elopt_4_1nal.txt', sep='\t', names=['
 tk_poli['kot'] = 90 - 5* tk_poli['kot']
 
 def fit_tk1(x,i0, i1, d):
-    return i0 + i1 * (np.sin(x + d))**2
+    return i0 + i1 * (np.sin((np.pi / 180) * x + d))**2
 
 popt, pcov = curve_fit(fit_tk1, tk_poli['kot'], tk_poli['I'], [8e-7, 7e-5, -0.7])
 
