@@ -11,20 +11,46 @@ from uncertainties import unumpy
 
 plt.style.use('science')
 
-nj = 1
-g = 10
-rho1 = 1000
-rho2 = 2
-E = 250
+nj = 18.3e-6
+g = 9.81
+rho1 = 973
+rho2 = 1.3
+E = ufloat(5e4, 1e3)
 pi = np.pi
 
 
 data = pd.read_csv('Milik/data/data.csv')
 
-data['v+'] = [ufloat(x, 2) for x in data['v+']]
-data['v-'] = [ufloat(x, 2) for x in data['v-']]
+data['v+'] = [ufloat(x*1e-6, 2e-6) for x in data['v+']]
+data['v-'] = [ufloat(x*1e-6, 2e-6) for x in data['v-']]
 
 
-data['r'] = unumpy.sqrt(9*nj*(data['v+'] + data['v-'])/4*g*(rho1 - rho2))
+data['r'] = unumpy.sqrt(9*nj*(data['v+'] + data['v-'])/(4*g*(rho1 - rho2)))
 data['ne'] = np.abs((3*pi*data['r']*nj/E)*(data['v+']-data['v-']))
 
+###formating data v lepe enote
+
+data['v+'] = data['v+']*1e6
+data['v-'] = data['v-']*1e6
+data['r'] = data['r']*1e6
+data['$n$'] = 8*[0] + 22*[1]
+
+def safe_ufloat_divide(row):
+    try:
+        return row['ne'] / row['$n$']
+    except (ZeroDivisionError, TypeError):
+        return None
+
+data['$e_0$'] = data.apply(safe_ufloat_divide, axis=1)
+
+print(data.to_latex(index=False))
+
+data['count'] = np.arange(1, len(data['ne']) + 1)
+data['ne'] = unumpy.nominal_values(data['ne'])
+
+plt.title('Kumulativna razporeditev naboja')
+plt.step(data['ne'], data['count'], where='post')
+plt.grid()
+plt.xlabel('ne')
+plt.ylabel('N')
+plt.savefig('Milik/porocilo/graf.pdf', dpi=1024)
