@@ -54,3 +54,15 @@ plt.grid()
 plt.xlabel('ne')
 plt.ylabel('N')
 plt.savefig('Milik/porocilo/graf.pdf', dpi=1024)
+plt.clf()
+
+# Function to calculate average of ufloat values, ignoring None
+def ufloat_average(series):
+    valid_values = [x for x in series if x is not None]
+    if not valid_values:
+        return None
+    return sum(valid_values) / len(valid_values)
+
+# Calculate average
+average = ufloat_average(data['$e_0$'])
+print(average)
