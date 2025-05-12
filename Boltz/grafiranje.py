@@ -23,12 +23,13 @@ def linfit(x, a, b):
 
 
 popt, pcov = curve_fit(linfit, t1['U'], t1['lnI'])
+
 perr = np.sqrt(np.diag(pcov))
 
-esk = ufloat(popt[0], perr[0]) * 287.85
 
-k = 1.60217733e-19 / (ufloat(popt[0], perr[0]) * 287.85)
+eskbt = ufloat(popt[0], perr[0])
 
 print(k)
 
+print(eskbt)
 
