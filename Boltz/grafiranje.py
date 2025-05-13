@@ -54,8 +54,8 @@ for file in mojU:
 
     u = np.linspace(0.4, df['U'].max(), 1000)
 
-    plt.plot(df['U'], df['lnI'], 'o', ms=2, label=str(round(mojU_T[mojU.index(file)] - 273.15, 1)) + 'meritev')
-    plt.plot(u, linfit(u, *popt), label=str(round(mojU_T[mojU.index(file)] - 273.15, 1)) + 'fit')
+    plt.plot(df['U'], df['lnI'], 'o', ms=2, label=str(round(mojU_T[mojU.index(file)] - 273.15, 1)) + '$^{\circ}C$ meritev')
+    plt.plot(u, linfit(u, *popt), label=str(round(mojU_T[mojU.index(file)] - 273.15, 1)) + '$^{\circ}C$ fit')
 
 plt.legend()
 plt.grid()
@@ -108,3 +108,69 @@ esk_err = np.sqrt(np.max(eskerr)**2 + np.std(esk)**2)
 print(esk_avg, esk_err)
 
 
+for file in mojT:
+    i = mojT.index(file)
+    df = pd.read_csv(file, sep='\t', names=['T', 'I'])
+    df['lnI'] = np.log(df['I'])
+
+    plt.plot(df['T'], df['I'], label=str(mojT_U[i]) + 'V')
+
+plt.legend()
+plt.grid()
+plt.xlabel('T [$^{\circ}C$]')
+plt.ylabel('$I_c$ [$A$]')
+plt.title('Graf toka proti temperaturi')
+plt.savefig('Boltz/porocilo/iodt.pdf', dpi=1024)
+plt.clf()
+
+for file in mojT:
+    i = mojT.index(file)
+    df = pd.read_csv(file, sep='\t', names=['T', 'I'])
+    df['lnI'] = np.log(df['I'])
+
+    plt.plot(df['T'], df['lnI'], label=str(mojT_U[i]) + 'V')
+
+plt.legend()
+plt.grid()
+plt.xlabel('T [$^{\circ}C$]')
+plt.ylabel('$ln(I_c/I_1)$')
+plt.title('Graf logaritma toka proti temperaturi')
+plt.savefig('Boltz/porocilo/lniodt.pdf', dpi=1024)
+plt.clf()
+
+
+for file in mojT:
+    i = mojT.index(file)
+    df = pd.read_csv(file, sep='\t', names=['T', 'I'])
+    df['lnI'] = np.log(df['I'])
+
+    df['Is'] = df['I'] * np.exp(-(esk_avg * mojT_U[i] / (df['T'] + 273.15)))
+
+    plt.plot(df['T'], df['Is'], label=str(mojT_U[i]) + 'V')
+
+plt.legend()
+plt.grid()
+plt.xlabel('T [$^{\circ}C$]')
+plt.ylabel('$I_s$')
+plt.title('Graf nasičenega toka proti temperaturi')
+plt.savefig('Boltz/porocilo/isodt.pdf', dpi=1024)
+plt.clf()
+
+
+for file in mojT:
+    i = mojT.index(file)
+    df = pd.read_csv(file, sep='\t', names=['T', 'I'])
+    df['lnI'] = np.log(df['I'])
+
+    df['Is'] = df['I'] * np.exp(-(esk_avg * mojT_U[i] / (df['T'] + 273.15)))
+    df['lnis'] = np.log(df['Is'])
+
+    plt.plot(df['T'], df['lnis'], label=str(mojT_U[i]) + 'V')
+
+plt.legend()
+plt.grid()
+plt.xlabel('T [$^{\circ}C$]')
+plt.ylabel('$ln(I_s/I_1)$')
+plt.title('Graf logaritma nasičenega toka proti temperaturi')
+plt.savefig('Boltz/porocilo/lnisodt.pdf', dpi=1024)
+plt.clf()
