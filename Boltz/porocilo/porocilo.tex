@@ -71,5 +71,77 @@ Pri eksperimentu smo nadzorovali napetost med bazo in emitorjem s pomočjo bater
 
 \section{Rezultati in analiza}
 
+Najprej smo merili odvisnost kolektorskega toka $I_c$ od napetosti med bazo in emitorjem $U_{BE}$. Iz enačbe \ref{ebermol} vidimo, da bi bilo koristno enačbo linearizirati z logaritmom, da bomo lahko določali razmerje $e_0/k_b$. To storimo za meritve pri vseh treh različnih temperaturah. Tako je nastal graf \ref{linbin}, ki prikazuje linearizirane vse tri meritve posebaj.
+
+\begin{figure}[ht]
+\begin{center}
+    \includegraphics[width=10cm]{moju_lin.pdf}
+    \caption{Linearizirane odvisnosti kolektorskega toka od napetosti}
+    \label{linbin}
+\end{center}
+\end{figure}
+
+\newpage
+\noindent S pythonom, smo lahko zelo zanesljivo določili naklon premic na grafu \ref{linbin} s čimer smo dobili $\frac{e_0}{k_bT}$. Ko to vrednost končno pomnožimo še s temperaturo pri kateri smo izvedli posamezno meritev dobimo iskano razmerje $\frac{e_0}{k_b}$. Vrednosti so zapisane v tabeli \ref{tabela}:
+
+\begin{table}[!ht]
+\centering
+\begin{tabular}{c|c}
+    T [$^{\circ} C$] & $\frac{e_0}{k_b}$ [K/V] \\ \hline
+    $55,9 \pm 0,6$ & $11340\pm 20$ \\
+    $36,3\pm 0,3$ & $11190\pm 10$\\
+    $14,7\pm 0,1$ & $10888\pm 4$\\\hline \hline
+    average & $11100\pm 200$\\
+\end{tabular}
+\caption{preračunane vrednosti za iskano razmerje ter njegova povprečna vrednost}
+\label{tabela}
+\end{table}
+
+S tem smo na žalost nekoliko zgrašili vrednost iz literature ($11604\ K/V$). A pogumno je delati statistične zaključke po treh meritvah, zato sem si sposodil še 38 meritev mojih sošolcev, kjer sem preko enakega postopka prišel do rezultata:
+
+\begin{equation*}
+    \frac{e_0}{k_b} = (11200\pm 400) K/V,
+\end{equation*}
+ki se dejansko strinja z teoretično vrednostjo v okviru napake.
+
+\bigskip
+
+\noindent Sledi raziskava odvisnosti kolektorskega toka od temperature. Merili smo pri dveh različnih napetostih $U_{BE}$ in dobili naslednje grafe \ref{iodt}:
+
+\begin{figure}[h!]
+\centering
+\begin{minipage}[t]{0.45\textwidth}
+    \includegraphics[width=\textwidth]{iodt.pdf}
+
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.45\textwidth}
+    \includegraphics[width=\textwidth]{lniodt.pdf}
+
+\end{minipage}
+\caption{Meritev kolektorskega toka na levi in njegovega logaritma na desni, v odvisnosti od temperature}
+\label{iodt}
+\end{figure}
+
+Kot vidimo, je odvisnost blizu eksponentni, a ne popolnoma. Kot nas navodila podučijo, nas tukaj bolj zanima neposredna meritev saturacijskega toka v odvisnosti od temperature. Slednjega lahko izrazimo iz enačbe \ref{ebermol} in odvisnost tudi grafiramo. Na ta način dobimo slednja grafa \ref{is}:
+
+\begin{figure}[ht]
+    \centering
+    \begin{minipage}[t]{0.42\textwidth}
+        \includegraphics[width=\textwidth]{isodt.pdf}
+    
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.48\textwidth}
+        \includegraphics[width=\textwidth]{lnisodt.pdf}
+    
+    \end{minipage}
+    \caption{Preračunane vrednosti nasičenega toka in njegovega logaritma}
+    \label{is}
+\end{figure}
+\newpage
+
+Nažalost mi ni uspelo na neposredno meritve nasičenega toka fitati v navodilih predstavljenega modela, a že iz slike nas ni težko prepričati, da odvisnost velja. Da smo naredili nekaj prav še bolje dokazuje dejstvo, da se grafa čez skupno definicijsko območje zelo natančno prekrivata. To dvoje skupaj nam da nekaj zaupanja, da smo res uspešno izmerili nasičen tok.
+
 
 \end{document}

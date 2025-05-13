@@ -22,7 +22,7 @@ mojT_U = [0.58, 0.5]
 mojT_Uerr = [5e-4, 5e-4]
 
 mojU_T = np.array([55.9, 36.3, 14.7]) + 273.15
-mojU_Terr = [0.1, 0.3, 0.6]
+mojU_Terr = [0.6, 0.3, 0.1]
 
 tvojU_T = np.array([34, 15.3, 35.8, 22.5, 35, 56.4, 54.1, 55, 15.9, 36.4, 35, 34, 15, 17, 52.8, 54.3, 28.2, 17, 13.8, 14, 13.7, 36.6, 53, 57, 55, 55, 48, 35.8, 36, 55, 35, 54.9, 60, 56, 17]) + 273.15
 tvojU_Terr = np.ones(len(tvojU_T))
@@ -97,6 +97,10 @@ for file in mojU + tvojU:
     ekt = ekt + [popt[0]]
     ekterr = ekterr + [perr[0]]
 
+
+popt, pcov = curve_fit(linfit, np.ones(38)/(list(mojU_T) + list(tvojU_T)), ekt)
+
+print(popt)
 
 esk = (np.array(ekt) * (list(mojU_T) + list(tvojU_T)))
 eskerr = (np.array(ekt) * (mojU_Terr + list(tvojU_Terr)))
