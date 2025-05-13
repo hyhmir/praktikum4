@@ -117,6 +117,7 @@ for file in mojT:
 
 plt.legend()
 plt.grid()
+plt.ticklabel_format(axis='y', style='sci', scilimits=(0, 0))
 plt.xlabel('T [$^{\circ}C$]')
 plt.ylabel('$I_c$ [$A$]')
 plt.title('Graf toka proti temperaturi')
