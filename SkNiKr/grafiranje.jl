@@ -8,7 +8,7 @@ using InteractiveUtils
 using Plots, DataFrames, Statistics, LsqFit, CSV, RollingFunctions
 
 # ╔═╡ f41c068d-b490-4b8d-a4ea-a1ef84fab455
-df = CSV.read("data/1del/CSV820.csv", DataFrame);
+df = CSV.read("data/1del/CSV0.csv", DataFrame);
 
 # ╔═╡ e15fb404-5029-4821-a689-14c77b4fc8b6
 data = df[df.Source .>= 10e-6, :];
@@ -35,13 +35,13 @@ model2(x, p) = p[1].*sin.((p[2]).*x).*sin.((p[3]).*x .+ p[4]).*exp.(p[5].*x) .+ 
 model3(x, p) = p[1].*((p[2]).*x).*sin.((p[3]).*x .+ p[4]).*exp.(p[5].*x) .+ p[6];
 
 # ╔═╡ 011aa999-0c8a-4198-9b19-6392c354e81c
-p0 = [0.008, 20000, 5e5, 0, -1000, 0];
+p0 = [0.005, 40338, 4e5, 0, -6000, 0];
 
 # ╔═╡ a1ee5e8f-3140-4680-826f-cdd545ec7677
 fit1 = curve_fit(model1, data.time, data.U1, p0);
 
 # ╔═╡ 69d18c26-4f3a-47d2-9ce7-ecb963e66b57
-fit2 = curve_fit(model2, data.time, data.U2, p0);
+fit2 = curve_fit(model3, data.time, data.U2, p0);
 
 # ╔═╡ 69df22ec-1551-4a0a-8ec5-3dd6cef6139b
 plotly();
@@ -56,7 +56,7 @@ p2 = plot(data.time, data.U2, label="meritev U2");
 plot!(p1, data.time, model1(data.time, fit1.param), label="fit U1");
 
 # ╔═╡ 033eb94a-83e2-466f-9810-b5097dd4263a
-plot!(p2, data.time, model2(data.time, fit2.param), label="fit U2");
+plot!(p2, data.time, model3(data.time, fit2.param), label="fit U2");
 
 # ╔═╡ 2e94dff8-5938-4d0f-9036-f48053c0d43e
 plot(p1, p2, layout=(1,2))
