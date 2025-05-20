@@ -14,7 +14,7 @@ using PlutoUI
 using Images
 
 # ╔═╡ 8634cdec-1b47-4976-a81a-e1eb9deb3f54
-df = CSV.read("/home/hyh/Documents/praktikum4/SkNiKr/data/1del/CSV0.csv", DataFrame);
+df = CSV.read("/home/hyh/Documents/praktikum4/SkNiKr/data/1del/CSV560.csv", DataFrame);
 
 # ╔═╡ cd78e8cd-78a6-411e-b6aa-1feee8681c47
 df_filtered = df[df.Source .>=0, :];
@@ -46,29 +46,35 @@ p0 = [0.01, 4e5, 3.5e5, 0, -9576.18, 0.0001];
 # ╔═╡ 51954306-c3ed-4674-b0cd-4094e22f96a2
 fit1 = curve_fit(model1, df_rolling.Source, df_rolling.CH1, p0)
 
+# ╔═╡ 67a094cc-9ad6-4ca4-8baa-0052b9321be9
+fit1.param
+
+# ╔═╡ 62c854f7-9636-4d76-a20e-81f629f7301f
+stderror(fit1)
+
 # ╔═╡ 76c0dbdd-dc58-47eb-a68e-bfa46b23c6af
-fit2 = curve_fit(model3, df_rolling.Source, df_rolling.CH2, p0)
+fit2 = curve_fit(model2, df_rolling.Source, df_rolling.CH2, p0)
+
+# ╔═╡ 7b3b0c09-51bc-4b9c-86fc-158a9481d124
+fit2.param
+
+# ╔═╡ 67edc28b-d5f1-400b-ae8f-11e02c2ba5e6
+stderror(fit2)
 
 # ╔═╡ 79a1c6b7-00f7-4711-9c10-e9c1b1598ab1
 gr()
 
 # ╔═╡ 6991645f-9a39-4183-9037-e5bdcada895f
-p1 = plot(df_rolling.Source, df_rolling.CH1, label="meritev");
+p3 = plot(df_rolling.Source, df_rolling.CH1, label="meritev");
 
 # ╔═╡ 1dcf20bb-f8f2-4163-b488-178bcdf6f0e5
-plot!(p1, df_filtered.Source, model1_o(df_filtered.Source, fit1.param), label="ovojnica")
-
-# ╔═╡ 7f3fcfac-c4fa-414c-9429-1968f9fe0264
-savefig(p1, "p1.pdf");
+plot!(p3, df_filtered.Source, model1_o(df_filtered.Source, fit1.param), label="ovojnica")
 
 # ╔═╡ bca00df8-2a16-422e-82b6-66a00844ec6b
-p2 = plot(df_rolling.Source, df_rolling.CH2, label="meritev");
+p4 = plot(df_rolling.Source, df_rolling.CH2, label="meritev");
 
 # ╔═╡ 0474b898-5539-4f6e-8b2c-ac0c6c81b6a2
-plot!(p2, df_filtered.Source, model3_o(df_filtered.Source, fit2.param), label="ovojnica")
-
-# ╔═╡ 8d07b2a1-18db-4c47-bc9f-cca8a6789be7
-savefig(p2, "p2.pdf");
+plot!(p4, df_filtered.Source, model2_o(df_filtered.Source, fit2.param), label="ovojnica")
 
 # ╔═╡ 00000000-0000-0000-0000-000000000001
 PLUTO_PROJECT_TOML_CONTENTS = """
@@ -2329,13 +2335,15 @@ version = "1.8.1+0"
 # ╠═105b6b88-1230-47e8-9270-1e1a1610c32f
 # ╠═3e9ee5be-b523-41d4-bef8-568290762caa
 # ╠═51954306-c3ed-4674-b0cd-4094e22f96a2
+# ╠═67a094cc-9ad6-4ca4-8baa-0052b9321be9
+# ╠═62c854f7-9636-4d76-a20e-81f629f7301f
 # ╠═76c0dbdd-dc58-47eb-a68e-bfa46b23c6af
+# ╠═7b3b0c09-51bc-4b9c-86fc-158a9481d124
+# ╠═67edc28b-d5f1-400b-ae8f-11e02c2ba5e6
 # ╠═79a1c6b7-00f7-4711-9c10-e9c1b1598ab1
 # ╠═6991645f-9a39-4183-9037-e5bdcada895f
 # ╠═1dcf20bb-f8f2-4163-b488-178bcdf6f0e5
-# ╠═7f3fcfac-c4fa-414c-9429-1968f9fe0264
 # ╠═bca00df8-2a16-422e-82b6-66a00844ec6b
 # ╠═0474b898-5539-4f6e-8b2c-ac0c6c81b6a2
-# ╠═8d07b2a1-18db-4c47-bc9f-cca8a6789be7
 # ╟─00000000-0000-0000-0000-000000000001
 # ╟─00000000-0000-0000-0000-000000000002
