@@ -8,7 +8,7 @@ using InteractiveUtils
 using Plots, DataFrames, Statistics, LsqFit, CSV, RollingFunctions
 
 # ╔═╡ f41c068d-b490-4b8d-a4ea-a1ef84fab455
-df = CSV.read("data/1del/CSV0.csv", DataFrame);
+df = CSV.read("data/1del/CSV150.csv", DataFrame);
 
 # ╔═╡ e15fb404-5029-4821-a689-14c77b4fc8b6
 data = df[df.Source .>= 10e-6, :];
@@ -34,15 +34,6 @@ model2(x, p) = p[1].*sin.((p[2]).*x).*sin.((p[3]).*x .+ p[4]).*exp.(p[5].*x) .+ 
 # ╔═╡ 803f104f-e080-4ec1-9224-0a7999a82ac3
 model3(x, p) = p[1].*((p[2]).*x).*sin.((p[3]).*x .+ p[4]).*exp.(p[5].*x) .+ p[6];
 
-# ╔═╡ 011aa999-0c8a-4198-9b19-6392c354e81c
-p0 = [0.005, 40338, 4e5, 0, -6000, 0];
-
-# ╔═╡ a1ee5e8f-3140-4680-826f-cdd545ec7677
-fit1 = curve_fit(model1, data.time, data.U1, p0);
-
-# ╔═╡ 69d18c26-4f3a-47d2-9ce7-ecb963e66b57
-fit2 = curve_fit(model3, data.time, data.U2, p0);
-
 # ╔═╡ 69df22ec-1551-4a0a-8ec5-3dd6cef6139b
 plotly();
 
@@ -52,24 +43,60 @@ p1 = plot(data.time, data.U1, label="meritev U1");
 # ╔═╡ ca11ad9a-0c4b-410a-8d75-a46a7ce212dd
 p2 = plot(data.time, data.U2, label="meritev U2");
 
-# ╔═╡ ab36f91d-d60b-453e-8ee1-b849bfb922e5
-plot!(p1, data.time, model1(data.time, fit1.param), label="fit U1");
-
-# ╔═╡ 033eb94a-83e2-466f-9810-b5097dd4263a
-plot!(p2, data.time, model3(data.time, fit2.param), label="fit U2");
-
 # ╔═╡ 2e94dff8-5938-4d0f-9036-f48053c0d43e
 plot(p1, p2, layout=(1,2))
+
+# ╔═╡ 4c228844-a897-4b1c-ba6d-1ef7216e0474
+
+
+# ╔═╡ f346520e-31e9-47b4-8405-b2cbbc601b0d
+dw = [18940, 26330, 33620, 40355] .* 1e-9;
+
+# ╔═╡ c776e933-3de6-4e59-8e46-7635d1aac580
+ddw = [50, 30, 30, 20] .* 1e-9;
+
+# ╔═╡ b80549f1-4a84-4fad-a860-3c98c91e9083
+c = [330, 560, 820, 1150];
+
+# ╔═╡ b9ff6eb3-9eff-44ad-b0a0-1e6bb0fce2b0
+model(x, p) = 4.2e5 .- sqrt.(5.6e-9 ./ (5.6e-9 .+ x) .* (17.64e10 + 14341369) .- 14341369) .+ p[1];
+
+# ╔═╡ 290bc42f-ea9f-49e2-8be9-7443360de38a
+weights = 1 ./ ddw.^2
+
+# ╔═╡ a1ee5e8f-3140-4680-826f-cdd545ec7677
+fit1 = curve_fit(model1, data.time, data.U1, p0);
+
+# ╔═╡ ab36f91d-d60b-453e-8ee1-b849bfb922e5
+plot!(p1, data.time, model1(data.time, fit1.param), label="fit U1");
 
 # ╔═╡ 5ccd184a-6709-4c63-a348-3b8fef87c403
 U1 = DataFrame(Parameter=["U0", "Δω", "avgω", "δ", "β", "offset"],
 			  Value=fit1.param,
 			  Uncertainty=stderror(fit1))
 
+# ╔═╡ 69d18c26-4f3a-47d2-9ce7-ecb963e66b57
+fit2 = curve_fit(model2, data.time, data.U2, p0);
+
+# ╔═╡ 033eb94a-83e2-466f-9810-b5097dd4263a
+plot!(p2, data.time, model2(data.time, fit2.param), label="fit U2");
+
 # ╔═╡ fbc50b0b-a3fe-4855-b10d-bee363d4d362
 U2 = DataFrame(Parameter=["U0", "Δω", "avgω", "δ", "β", "offset"],
 			  Value=fit2.param,
 			  Uncertainty=stderror(fit2))
+
+# ╔═╡ a3f8d67b-8e41-4b17-8ffc-0c6e76f62619
+fitt = curve_fit(model, c, dw, p0, weights=weights);
+
+# ╔═╡ 011aa999-0c8a-4198-9b19-6392c354e81c
+# ╠═╡ disabled = true
+#=╠═╡
+p0 = [0.005, 40338, 4e5, 0, -6000, 0];
+  ╠═╡ =#
+
+# ╔═╡ 25ac5a7f-cd2b-4d6e-bb5a-13ed49562507
+p0 = [5000]
 
 # ╔═╡ 00000000-0000-0000-0000-000000000001
 PLUTO_PROJECT_TOML_CONTENTS = """
@@ -1639,5 +1666,13 @@ version = "1.8.1+0"
 # ╠═2e94dff8-5938-4d0f-9036-f48053c0d43e
 # ╠═5ccd184a-6709-4c63-a348-3b8fef87c403
 # ╠═fbc50b0b-a3fe-4855-b10d-bee363d4d362
+# ╠═4c228844-a897-4b1c-ba6d-1ef7216e0474
+# ╠═f346520e-31e9-47b4-8405-b2cbbc601b0d
+# ╠═c776e933-3de6-4e59-8e46-7635d1aac580
+# ╠═b80549f1-4a84-4fad-a860-3c98c91e9083
+# ╠═b9ff6eb3-9eff-44ad-b0a0-1e6bb0fce2b0
+# ╠═290bc42f-ea9f-49e2-8be9-7443360de38a
+# ╠═25ac5a7f-cd2b-4d6e-bb5a-13ed49562507
+# ╠═a3f8d67b-8e41-4b17-8ffc-0c6e76f62619
 # ╟─00000000-0000-0000-0000-000000000001
 # ╟─00000000-0000-0000-0000-000000000002

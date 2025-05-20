@@ -102,7 +102,7 @@ $$U_2(t) = U_0 e^{-\beta t} \sin \left(\frac{\omega ' + \omega''}{2}t\right)\sin
 \caption{$U_1, U_2$ izmerjena, ter njuni ovojnici pri minimalni sklopitvi}
 \end{figure}
 
-Iz fita dobimo vrednosti parametra $\omega' = 4.2\cdot 10^5 \ 1/s$, napake fita pa tu ne bom navajal, saj je večja od same vrednosti. Če predpostavimo $\omega >> \beta$ (kar lahko naredimo saj mo daleč od kritičnega dušenja), dobimo $L = 9.9\cdot 10^{-4} H$ Za tem smo praktično isti postopek ponovili še za ostale sklopitve. Primer meritve in ovojnice fita vidimo na naslednjih dveh grafih:
+Iz fita dobimo vrednosti parametra $\omega' = 4.2\cdot 10^5 \ 1/s$, napake fita pa tu ne bom navajal, saj je manjša od procenta. Če predpostavimo $\omega >> \beta$ (kar lahko naredimo saj mo daleč od kritičnega dušenja), dobimo $L = 9.9\cdot 10^{-4} H$ Za tem smo praktično isti postopek ponovili še za ostale sklopitve. Primer meritve in ovojnice fita vidimo na naslednjih dveh grafih:
 
 \begin{figure}[h]
 \centering
@@ -132,9 +132,16 @@ Ko smo tako fitali omenjeno funkcijo na podatke smo dobili naslednje vrednosti p
     & $U_2$ & $6200\pm 2$ & $33600\pm 1$\\
     $1150$ &$U_1$ & $6252\pm 1$ & $40368\pm 1$\\
     & $U_2$ & $6430\pm 2$ & $40338\pm 1$\\\hline \hline
-    povprečje && prvi &drugi
+    povprečje && $6300\pm 300$ &
 \end{tabular}
 \caption{Tabela izmerjenih vrednosti}
 \end{table}
+kjer je $\Delta \omega = \omega' - \omega''$. Če $\beta$ izračunamo iz podanega upora in prej izračunane induktivnosti dobimo:
+
+$$
+\beta' = \frac{R}{2L} = 3787\ s^{-1}
+$$
+kar zelo močno odstopa od izmerjene vrednosti. Razlog za to je v morda večjem uporu, ali kakšni drugi neidealizaciji. Frekvence utripanja smo nato nanesli na graf v odvsnosti od sklopitvenega kondenzatorja:
+
 
 \end{document}
