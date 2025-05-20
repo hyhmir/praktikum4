@@ -23,14 +23,84 @@
 
 \section{Uvod}
 
+Zelo pogosto se v naravi srečamo s pojavi, kjer gre za dva ali več nihal, ki so med seboj sklopljena. Zaradi omenjene sklopitvije nihal ne moremo več obravnavati ločeno temveč kot en sistem.
+
+Sistem $n$ enakih in enostavnih oscilatorjev ima $n$ lastnih nihanj. V prvem letniku smo že spoznali obnašanje dveh sklopljenih fizičnih nihal; tam sta lastni frekvenci ko nihali nihata točno v fazi in ko nihata iz faze. Prva lastna frekvenca je kar enaka lastni frekvenci posameznega nihala, druga pa je hitrejša, če je sklopitev močnejša.
+
+Pri tej vaji smo opazovali električna nihajna kroga sklopljena s kondenzatorjem. En sam nihajni krog sestavljen iz kondenzatorja s kapaciteto $C$ in tuljave z induktivnostjo $L$ niha s krožno frekvenco; 
+
+$$\omega_0 = \frac{1}{\sqrt{LC}}$$
+
+Če je v nihajnem krogu prisoten še upor $R$, nastopi dušenje, ki ga opišemo s koeficientom $\beta = R/2L$. Sistem opisujejo enačbe za dušeno nihanje z rešitvijo;
+
+$$I(t) = e^{-\beta t} \left(I_1\sin{\omega ' t} + I_2\cos{\omega ' t}\right)$$
+
+Kjer je $\omega ' = \sqrt{\omega_0^2 - \beta^2}$
+
+Če k prvemu krogu vežemo še drugi preko kondenzatorja $C_0$ potem dobimo sklopljen sistem nihajnih krogov. zaradi dveh prostorskih stopenj imamo torej dva lastna načina nihanja; prvi je enak kot prej, ko oba nihata v fazi, drugi lasten način pa je:
+
+$$U_{1,2} = \pm U_0 e^{-\beta t} \cos (\omega '' t)$$
+
+kjer je $\omega '' = \sqrt{\frac{C}{C-C_0}\omega_0^2 - \beta^2}$.
+
+Splošno obnašanje sistema lahko opišemo kot linearno kombinacijo obeh lastnih nihanj:
+
+$$U_{1,2} = e^{-\beta t} \left(U' \cos (\omega' t) \pm U'' \cos (\omega '' t + \delta)\right)$$
+
+
 
 \section{Potrebščine}
+
+\begin{itemize}
+\item Digitalni osciloskop,
+\item funkcijski generator napetosti, namizni multimeter,
+\item nihajna kroga in kabli, USB ključek,
+\item prenosnik z ustrezno programsko opremo.
+\end{itemize}
 
 
 \section{Naloga}
 
+\begin{enumerate}
+\item Izmerite časovni potek napetosti na obeh krogih pri vzbujanju s stopničastim signalom za vse različne sklopitve,
+\item Izmerite frekvenčno karakteristiko enega nihajnega kroga in določite dobroto $Q$
+\item Izmerite frekvenčo karakteristiko sklopljenih nihajnih krogov z meritvijo odziva drugega kroga za vsak $C_0$ in izmerite razliko lastnih krožnih frekvenc
+\end{enumerate}
+
 
 \section{Rezultati in analiza}
+
+Nihajna kroga sta sestavljena iz tuljave z induktivnostjo $L$, kondenzatorja s kapacitivnostjo $C = 5.6\ nF$ in uporom z upornostjo $R = 7.5\ \Omega$. Najprej smo priklopili nihajna kroga na osciloskop in vir stopničaste napetosti (glej sliko vezja). Izmerili smo odziv prvega in drugega kondenzatorja pri vseh različnih sklopitvah.
+
+\begin{figure}[ht]
+\begin{center}
+    \includegraphics[width=10cm]{vezje.png}
+    \caption{Skica vezja uporabljenega pri eksperimentu}
+\end{center}
+\end{figure}
+
+Najprej smo merili odziv brez sklopitve $C_0 = 0$, a se je že tu izkazalo, da je prišlo do nekaj sklopitve. Tako smo že tu na grafa $U_1, U_2$ že na tej točki *fitali* funkciji:
+
+$$U_1(t) = U_0 e^{-\beta t} \sin \left(\frac{\omega ' + \omega''}{2}t\right)\cos\left((\omega'-\omega'')t\right)$$
+
+$$U_2(t) = U_0 e^{-\beta t} \sin \left(\frac{\omega ' + \omega''}{2}t\right)\sin\left((\omega'-\omega'')t\right)$$
+
+Če bi na grafe risali tudi fite funkcij bi nastal kaos, tako da smo poleg izmerjenih podatkov risali zgolj ovojnico. Na ta način smo dobili naslednja grafa:
+\newpage
+
+\begin{figure}[h]
+\centering
+\begin{minipage}[t]{0.45\textwidth}
+    \includegraphics[width=\textwidth]{p1.pdf}
+
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.45\textwidth}
+    \includegraphics[width=\textwidth]{p2.pdf}
+
+\end{minipage}
+\caption{$U_1, U_2$ izmerjena, ter njuni ovojnici pri minimalni sklopitvi}
+\end{figure}
 
 
 \end{document}
