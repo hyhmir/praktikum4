@@ -7,6 +7,9 @@ using InteractiveUtils
 # ╔═╡ 5fed29c4-3589-11f0-2160-71144c24eba7
 using Plots, DataFrames, Statistics, LsqFit, CSV, RollingFunctions
 
+# ╔═╡ 8eb3b2a3-148f-43f7-b3d0-9833903d93e0
+using PGFPlotsX
+
 # ╔═╡ f41c068d-b490-4b8d-a4ea-a1ef84fab455
 df = CSV.read("data/1del/CSV150.csv", DataFrame);
 
@@ -34,6 +37,15 @@ model2(x, p) = p[1].*sin.((p[2]).*x).*sin.((p[3]).*x .+ p[4]).*exp.(p[5].*x) .+ 
 # ╔═╡ 803f104f-e080-4ec1-9224-0a7999a82ac3
 model3(x, p) = p[1].*((p[2]).*x).*sin.((p[3]).*x .+ p[4]).*exp.(p[5].*x) .+ p[6];
 
+# ╔═╡ 011aa999-0c8a-4198-9b19-6392c354e81c
+p0 = [0.005, 40338, 4e5, 0, -6000, 0];
+
+# ╔═╡ a1ee5e8f-3140-4680-826f-cdd545ec7677
+fit1 = curve_fit(model1, data.time, data.U1, p0);
+
+# ╔═╡ 69d18c26-4f3a-47d2-9ce7-ecb963e66b57
+fit2 = curve_fit(model2, data.time, data.U2, p0);
+
 # ╔═╡ 69df22ec-1551-4a0a-8ec5-3dd6cef6139b
 plotly();
 
@@ -43,60 +55,104 @@ p1 = plot(data.time, data.U1, label="meritev U1");
 # ╔═╡ ca11ad9a-0c4b-410a-8d75-a46a7ce212dd
 p2 = plot(data.time, data.U2, label="meritev U2");
 
-# ╔═╡ 2e94dff8-5938-4d0f-9036-f48053c0d43e
-plot(p1, p2, layout=(1,2))
-
-# ╔═╡ 4c228844-a897-4b1c-ba6d-1ef7216e0474
-
-
-# ╔═╡ f346520e-31e9-47b4-8405-b2cbbc601b0d
-dw = [18940, 26330, 33620, 40355] .* 1e-9;
-
-# ╔═╡ c776e933-3de6-4e59-8e46-7635d1aac580
-ddw = [50, 30, 30, 20] .* 1e-9;
-
-# ╔═╡ b80549f1-4a84-4fad-a860-3c98c91e9083
-c = [330, 560, 820, 1150];
-
-# ╔═╡ b9ff6eb3-9eff-44ad-b0a0-1e6bb0fce2b0
-model(x, p) = 4.2e5 .- sqrt.(5.6e-9 ./ (5.6e-9 .+ x) .* (17.64e10 + 14341369) .- 14341369) .+ p[1];
-
-# ╔═╡ 290bc42f-ea9f-49e2-8be9-7443360de38a
-weights = 1 ./ ddw.^2
-
-# ╔═╡ a1ee5e8f-3140-4680-826f-cdd545ec7677
-fit1 = curve_fit(model1, data.time, data.U1, p0);
-
 # ╔═╡ ab36f91d-d60b-453e-8ee1-b849bfb922e5
 plot!(p1, data.time, model1(data.time, fit1.param), label="fit U1");
+
+# ╔═╡ 033eb94a-83e2-466f-9810-b5097dd4263a
+plot!(p2, data.time, model2(data.time, fit2.param), label="fit U2");
+
+# ╔═╡ 2e94dff8-5938-4d0f-9036-f48053c0d43e
+plot(p1, p2, layout=(1,2))
 
 # ╔═╡ 5ccd184a-6709-4c63-a348-3b8fef87c403
 U1 = DataFrame(Parameter=["U0", "Δω", "avgω", "δ", "β", "offset"],
 			  Value=fit1.param,
 			  Uncertainty=stderror(fit1))
 
-# ╔═╡ 69d18c26-4f3a-47d2-9ce7-ecb963e66b57
-fit2 = curve_fit(model2, data.time, data.U2, p0);
-
-# ╔═╡ 033eb94a-83e2-466f-9810-b5097dd4263a
-plot!(p2, data.time, model2(data.time, fit2.param), label="fit U2");
-
 # ╔═╡ fbc50b0b-a3fe-4855-b10d-bee363d4d362
 U2 = DataFrame(Parameter=["U0", "Δω", "avgω", "δ", "β", "offset"],
 			  Value=fit2.param,
 			  Uncertainty=stderror(fit2))
 
-# ╔═╡ a3f8d67b-8e41-4b17-8ffc-0c6e76f62619
-fitt = curve_fit(model, c, dw, p0, weights=weights);
+# ╔═╡ 4c228844-a897-4b1c-ba6d-1ef7216e0474
 
-# ╔═╡ 011aa999-0c8a-4198-9b19-6392c354e81c
-# ╠═╡ disabled = true
-#=╠═╡
-p0 = [0.005, 40338, 4e5, 0, -6000, 0];
-  ╠═╡ =#
+
+# ╔═╡ f346520e-31e9-47b4-8405-b2cbbc601b0d
+dw = [18940, 26330, 33620, 40355]
+
+# ╔═╡ c776e933-3de6-4e59-8e46-7635d1aac580
+ddw = [50, 30, 30, 20];
+
+# ╔═╡ b80549f1-4a84-4fad-a860-3c98c91e9083
+c = [330, 560, 820, 1150] .* 1e-3;
+
+# ╔═╡ b9ff6eb3-9eff-44ad-b0a0-1e6bb0fce2b0
+model(x, p) = 4.2e5 .- sqrt.(5.6 .* (17.64e10 + 14341369) ./ (5.6 .+ x) .- 14341369) .+ p[1];
+
+# ╔═╡ 290bc42f-ea9f-49e2-8be9-7443360de38a
+weights = 1 ./ ddw.^2
+
+# ╔═╡ 6e3513ef-257c-48ed-9210-dd686c3a09fd
+function weighted_residuals(x, p)
+    y_pred = model(x, p)
+    return (y_pred - dw) ./ ddw  # Weighted by 1/yerr
+end
+
+# ╔═╡ 1d3643f2-a99a-4049-8154-c03ac4b97da6
+p3 = plot(c, dw, label="meritve");
+
+# ╔═╡ c90548ae-923d-41bc-af53-0095b0176089
+plot!(p3, c, model(c, [0]) .+ 4717)
 
 # ╔═╡ 25ac5a7f-cd2b-4d6e-bb5a-13ed49562507
-p0 = [5000]
+p = [5662.99]
+
+# ╔═╡ a3f8d67b-8e41-4b17-8ffc-0c6e76f62619
+fitt = curve_fit(weighted_residuals, c, [0,0,0,0], p)
+
+# ╔═╡ 32c0a953-d7cb-4084-a366-2dc29ce6e818
+err = stderror(fitt)
+
+# ╔═╡ 2ff5f7cf-46df-4bd6-8d6e-f6a5460852a7
+x_fit = range(minimum(c), maximum(c), length=100);
+
+# ╔═╡ a5a6d23b-652b-4113-83ce-1b1b1756312b
+y_fit = model(x_fit, fitt.param);
+
+# ╔═╡ 6be15bef-e3ca-4dc8-aed5-5d3e88871dff
+pgfplotsx()
+
+# ╔═╡ 139bfcda-b3f8-4e01-b238-bfb9a2e46d7b
+plot(
+    x_fit, y_fit, 
+    label="Fit", 
+    linewidth=2, 
+    color=:red, 
+    legend=:bottomright
+);
+
+# ╔═╡ 65b8c6d7-bb84-4916-9897-ba16b61f50a6
+scatter!(
+    c, dw, 
+    yerr=ddw, 
+    label="Data", 
+    markersize=5, 
+    color=:blue,
+    markeralpha=0.7,
+    fmt=:png  # Ensures high-quality output in Pluto
+);
+
+# ╔═╡ 3d1dd4b9-dc38-445a-bda4-39ffa151f2e1
+xlabel!("C_0 [nF]");
+
+# ╔═╡ fa1a7363-20a4-41a7-b0d3-9bbeb48f1752
+ylabel!("Δω [s⁻1]");
+
+# ╔═╡ 1312273b-dff7-44f6-bd14-0d4ed66975e0
+savefig("porocilo/freq.tex");
+
+# ╔═╡ 41813678-6def-45a0-9019-a22b147df02b
+
 
 # ╔═╡ 00000000-0000-0000-0000-000000000001
 PLUTO_PROJECT_TOML_CONTENTS = """
@@ -104,6 +160,7 @@ PLUTO_PROJECT_TOML_CONTENTS = """
 CSV = "336ed68f-0bac-5ca0-87d4-7b16caf5d00b"
 DataFrames = "a93c6f00-e57d-5684-b7b6-d8193f3e46c0"
 LsqFit = "2fda8390-95c7-5789-9bda-21331edee243"
+PGFPlotsX = "8314cec4-20b6-5062-9cdb-752b83310925"
 Plots = "91a5bcdd-55d7-5caf-9e0b-520d859cae80"
 RollingFunctions = "b0e4dd01-7b14-53d8-9b45-175a3e362653"
 Statistics = "10745b16-79ce-11e8-11f9-7d13ad32a3b2"
@@ -112,6 +169,7 @@ Statistics = "10745b16-79ce-11e8-11f9-7d13ad32a3b2"
 CSV = "~0.10.15"
 DataFrames = "~1.7.0"
 LsqFit = "~0.15.1"
+PGFPlotsX = "~1.6.2"
 Plots = "~1.40.13"
 RollingFunctions = "~0.8.1"
 """
@@ -122,7 +180,7 @@ PLUTO_MANIFEST_TOML_CONTENTS = """
 
 julia_version = "1.11.5"
 manifest_format = "2.0"
-project_hash = "04c94d075dd46055805ea00567269aadd3e6c7cc"
+project_hash = "353171caf920e0cd1d835bafcb6f5139540a6e12"
 
 [[deps.ADTypes]]
 git-tree-sha1 = "e2478490447631aedba0823d4d7a80b2cc8cdb32"
@@ -158,6 +216,11 @@ deps = ["PtrArrays", "Random"]
 git-tree-sha1 = "9876e1e164b144ca45e9e3198d0b689cadfed9ff"
 uuid = "66dad0bd-aa9a-41b7-9441-69ab47430ed8"
 version = "1.1.3"
+
+[[deps.ArgCheck]]
+git-tree-sha1 = "f9e9a66c9b7be1ad7372bbd9b062d9230c30c5ce"
+uuid = "dce04be8-c92d-5529-be00-80e4d2c0e197"
+version = "2.5.0"
 
 [[deps.ArgTools]]
 uuid = "0dad84c5-d112-42e6-8d28-ef12dabb789f"
@@ -348,6 +411,12 @@ deps = ["Artifacts", "Expat_jll", "JLLWrappers", "Libdl"]
 git-tree-sha1 = "473e9afc9cf30814eb67ffa5f2db7df82c3ad9fd"
 uuid = "ee1fde0b-3d02-5ea6-8484-8dfef6360eab"
 version = "1.16.2+0"
+
+[[deps.DefaultApplication]]
+deps = ["InteractiveUtils"]
+git-tree-sha1 = "c0dfa5a35710a193d83f03124356eef3386688fc"
+uuid = "3f0dd361-4fe0-5fc6-8523-80b14ec94d85"
+version = "1.1.0"
 
 [[deps.DelimitedFiles]]
 deps = ["Mmap"]
@@ -949,11 +1018,35 @@ git-tree-sha1 = "f07c06228a1c670ae4c87d1276b92c7c597fdda0"
 uuid = "90014a1f-27ba-587c-ab20-58faa44d9150"
 version = "0.11.35"
 
+[[deps.PGFPlotsX]]
+deps = ["ArgCheck", "Dates", "DefaultApplication", "DocStringExtensions", "MacroTools", "OrderedCollections", "Parameters", "Requires", "Tables"]
+git-tree-sha1 = "e5df51ffc01f8771d94c8db2d164be1f6927849c"
+uuid = "8314cec4-20b6-5062-9cdb-752b83310925"
+version = "1.6.2"
+
+    [deps.PGFPlotsX.extensions]
+    ColorsExt = "Colors"
+    ContourExt = "Contour"
+    MeasurementsExt = "Measurements"
+    StatsBaseExt = "StatsBase"
+
+    [deps.PGFPlotsX.weakdeps]
+    Colors = "5ae59095-9a9b-59fe-a467-6f913c188581"
+    Contour = "d38c429a-6771-53c6-b99e-75d170b6e991"
+    Measurements = "eff96d63-e80a-5855-80a2-b1b0885c5ab7"
+    StatsBase = "2913bbd2-ae8a-5f71-8c99-4fb6c76f3a91"
+
 [[deps.Pango_jll]]
 deps = ["Artifacts", "Cairo_jll", "Fontconfig_jll", "FreeType2_jll", "FriBidi_jll", "Glib_jll", "HarfBuzz_jll", "JLLWrappers", "Libdl"]
 git-tree-sha1 = "3b31172c032a1def20c98dae3f2cdc9d10e3b561"
 uuid = "36c8627f-9965-5494-a995-c6b170f724f3"
 version = "1.56.1+0"
+
+[[deps.Parameters]]
+deps = ["OrderedCollections", "UnPack"]
+git-tree-sha1 = "34c0e9ad262e5f7fc75b10a9952ca7692cfc5fbe"
+uuid = "d96e819e-fc66-5662-9728-84c9c7592b0a"
+version = "0.12.3"
 
 [[deps.Parsers]]
 deps = ["Dates", "PrecompileTools", "UUIDs"]
@@ -1312,6 +1405,11 @@ version = "1.5.2"
 deps = ["Random", "SHA"]
 uuid = "cf7118a7-6976-5b1a-9a39-7adc72f591a4"
 version = "1.11.0"
+
+[[deps.UnPack]]
+git-tree-sha1 = "387c1f73762231e86e0c9c5443ce3b4a0a9a0c2b"
+uuid = "3a884ed6-31ef-47d7-9d2a-63182c4928ed"
+version = "1.0.2"
 
 [[deps.Unicode]]
 uuid = "4ec0a83e-493e-50e2-b9ac-8f72acf5a8f5"
@@ -1672,7 +1770,21 @@ version = "1.8.1+0"
 # ╠═b80549f1-4a84-4fad-a860-3c98c91e9083
 # ╠═b9ff6eb3-9eff-44ad-b0a0-1e6bb0fce2b0
 # ╠═290bc42f-ea9f-49e2-8be9-7443360de38a
+# ╠═6e3513ef-257c-48ed-9210-dd686c3a09fd
+# ╠═1d3643f2-a99a-4049-8154-c03ac4b97da6
+# ╠═c90548ae-923d-41bc-af53-0095b0176089
 # ╠═25ac5a7f-cd2b-4d6e-bb5a-13ed49562507
 # ╠═a3f8d67b-8e41-4b17-8ffc-0c6e76f62619
+# ╠═32c0a953-d7cb-4084-a366-2dc29ce6e818
+# ╠═2ff5f7cf-46df-4bd6-8d6e-f6a5460852a7
+# ╠═a5a6d23b-652b-4113-83ce-1b1b1756312b
+# ╠═8eb3b2a3-148f-43f7-b3d0-9833903d93e0
+# ╠═6be15bef-e3ca-4dc8-aed5-5d3e88871dff
+# ╠═139bfcda-b3f8-4e01-b238-bfb9a2e46d7b
+# ╠═65b8c6d7-bb84-4916-9897-ba16b61f50a6
+# ╠═3d1dd4b9-dc38-445a-bda4-39ffa151f2e1
+# ╠═fa1a7363-20a4-41a7-b0d3-9bbeb48f1752
+# ╠═1312273b-dff7-44f6-bd14-0d4ed66975e0
+# ╠═41813678-6def-45a0-9019-a22b147df02b
 # ╟─00000000-0000-0000-0000-000000000001
 # ╟─00000000-0000-0000-0000-000000000002
