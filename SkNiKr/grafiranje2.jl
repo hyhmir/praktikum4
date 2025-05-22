@@ -13,6 +13,12 @@ using Plots
 # ╔═╡ 9b86ca33-1652-42f6-b9e9-c39650c326d4
 using Measurements
 
+# ╔═╡ 413df00e-b4f0-4e05-9949-32058a942182
+using Peaks
+
+# ╔═╡ 01459482-f815-46d5-9452-b1fb07a5f816
+using PrettyTables
+
 # ╔═╡ b2db3574-ac7f-4cd0-b35a-ba6b2a94411f
 df = CSV.read("data/2del/2del_kratkistik.dat", DataFrame, header=["w", "odziv"]);
 
@@ -91,7 +97,74 @@ plot!(df31150.w, df31150.odziv, label="1150");
 # ╔═╡ 3c439ade-5733-489d-a280-492a530142f7
 savefig("porocilo/multi.pdf")
 
-# ╔═╡ 413df00e-b4f0-4e05-9949-32058a942182
+# ╔═╡ ee2a0b00-e1e0-4a8b-b26e-756d9f6d49d1
+maxima150 = findmaxima(df3150.odziv)
+
+# ╔═╡ 3ae8ae9d-7c99-425c-bc38-8e9009191ad2
+maxi150 = df3150.w[maxima150[1]]
+
+# ╔═╡ 65d7ef79-080e-4987-98cf-cf921c6d3cc2
+
+
+# ╔═╡ 04e65657-1280-404f-8381-981646f8c948
+max330 = findmaxima(df3330.odziv)
+
+# ╔═╡ e93f2dfb-282c-4143-bdcb-3edb8435aa9e
+diff330 = df3330.w[max330.indices[2]] - df3330.w[max330.indices[1]]
+
+# ╔═╡ e793276f-76c7-4e1c-b7e0-fab8b1b934d7
+maxi330 = df3330.w[max330.indices[1]];
+
+# ╔═╡ e1eb48fe-b6af-4111-81db-8885799e9c5a
+maxii330 = df3330.w[max330.indices[2]];
+
+# ╔═╡ ce6630f3-99b2-4d28-b34e-af355efeed95
+max560 = findmaxima(df3560.odziv);
+
+# ╔═╡ 2afb0032-c5d9-4a02-b9d8-d5fb92bc289d
+diff560 = df3560.w[max560.indices[2]] - df3560.w[max560.indices[1]]
+
+# ╔═╡ 3af40ab8-a627-4d1e-b739-6377aecbdf84
+maxi560 = df3560.w[max560.indices[1]];
+
+# ╔═╡ 0010890f-2717-4bb7-a411-77b9c3e11b2c
+maxii560 = df3560.w[max560.indices[2]];
+
+# ╔═╡ 9babc512-48b1-4fcc-b102-cc43b953918e
+max820 = findmaxima(df3820.odziv);
+
+# ╔═╡ df3d2c39-3763-4371-a29e-448d4f9b5c01
+diff820 = df3820.w[max820.indices[2]] - df3820.w[max820.indices[1]]
+
+# ╔═╡ 1ee23bd7-4124-4043-b5fe-f06f92f3fc2c
+maxi820 = df3820.w[max820.indices[1]];
+
+# ╔═╡ 17e657e3-b5d2-46e2-bba6-7aaa6b89c60a
+maxii820 = df3820.w[max820.indices[2]];
+
+# ╔═╡ 80b2b353-525f-49ec-9e6d-b327dc31925d
+max1150 = findmaxima(df31150.odziv);
+
+# ╔═╡ 091f15c9-d909-43a8-8910-b3a0384011fe
+diff1150 = df31150.w[max1150.indices[2]] - df31150.w[max1150.indices[1]]
+
+# ╔═╡ dd25db66-acdc-4ab8-b184-63286aec77d5
+maxi1150 = df31150.w[max1150.indices[1]];
+
+# ╔═╡ cc34e70e-6b87-4d6f-bc5e-0af883605935
+maxii1150 = df31150.w[max1150.indices[2]];
+
+# ╔═╡ d893d4f3-ebaa-4fa6-af1b-888c0994f6b6
+mjav = DataFrame(
+	C = [330, 560, 820, 1150],
+	ν1 = [maxi330, maxi560, maxi820, maxi1150],
+	ν2 = [maxii330, maxii560, maxii820, maxii1150],
+	Δν = [diff330, diff560, diff820, diff1150])
+
+# ╔═╡ c2d335de-0abc-4841-abc9-37a57e094e3c
+pretty_table(mjav, backend=Val(:latex))
+
+# ╔═╡ 244069ac-106c-4f08-8616-25b9a7a6109e
 
 
 # ╔═╡ 00000000-0000-0000-0000-000000000001
@@ -100,13 +173,17 @@ PLUTO_PROJECT_TOML_CONTENTS = """
 CSV = "336ed68f-0bac-5ca0-87d4-7b16caf5d00b"
 DataFrames = "a93c6f00-e57d-5684-b7b6-d8193f3e46c0"
 Measurements = "eff96d63-e80a-5855-80a2-b1b0885c5ab7"
+Peaks = "18e31ff7-3703-566c-8e60-38913d67486b"
 Plots = "91a5bcdd-55d7-5caf-9e0b-520d859cae80"
+PrettyTables = "08abe8d2-0d0c-5749-adfa-8a2ac140af0d"
 
 [compat]
 CSV = "~0.10.15"
 DataFrames = "~1.7.0"
 Measurements = "~2.12.0"
+Peaks = "~0.5.3"
 Plots = "~1.40.13"
+PrettyTables = "~2.4.0"
 """
 
 # ╔═╡ 00000000-0000-0000-0000-000000000002
@@ -115,7 +192,7 @@ PLUTO_MANIFEST_TOML_CONTENTS = """
 
 julia_version = "1.11.5"
 manifest_format = "2.0"
-project_hash = "34fb93b29eafaf93a8959aa7f62480b2c748b9ce"
+project_hash = "371c13f1f7340b517640620b80d1d9bfd13c0efe"
 
 [[deps.AliasTables]]
 deps = ["PtrArrays", "Random"]
@@ -742,6 +819,12 @@ git-tree-sha1 = "7d2f8f21da5db6a806faf7b9b292296da42b2810"
 uuid = "69de0a69-1ddd-5017-9359-2bf0b02dc9f0"
 version = "2.8.3"
 
+[[deps.Peaks]]
+deps = ["RecipesBase", "SIMD"]
+git-tree-sha1 = "75d0ce1c30696d77bc60840222d7fc5d549ebf5f"
+uuid = "18e31ff7-3703-566c-8e60-38913d67486b"
+version = "0.5.3"
+
 [[deps.Pixman_jll]]
 deps = ["Artifacts", "CompilerSupportLibraries_jll", "JLLWrappers", "LLVMOpenMP_jll", "Libdl"]
 git-tree-sha1 = "db76b1ecd5e9715f3d043cec13b2ec93ce015d53"
@@ -889,6 +972,12 @@ version = "1.3.1"
 [[deps.SHA]]
 uuid = "ea8e919c-243c-51af-8825-aaa63cd721ce"
 version = "0.7.0"
+
+[[deps.SIMD]]
+deps = ["PrecompileTools"]
+git-tree-sha1 = "fea870727142270bdf7624ad675901a1ee3b4c87"
+uuid = "fdea26ae-647d-5447-a871-4b548cad5224"
+version = "3.7.1"
 
 [[deps.Scratch]]
 deps = ["Dates"]
@@ -1385,5 +1474,28 @@ version = "1.8.1+0"
 # ╠═be1a8295-50dd-4fdf-b3ef-368229b9d77d
 # ╠═3c439ade-5733-489d-a280-492a530142f7
 # ╠═413df00e-b4f0-4e05-9949-32058a942182
+# ╠═ee2a0b00-e1e0-4a8b-b26e-756d9f6d49d1
+# ╠═3ae8ae9d-7c99-425c-bc38-8e9009191ad2
+# ╠═65d7ef79-080e-4987-98cf-cf921c6d3cc2
+# ╠═04e65657-1280-404f-8381-981646f8c948
+# ╠═e93f2dfb-282c-4143-bdcb-3edb8435aa9e
+# ╠═e793276f-76c7-4e1c-b7e0-fab8b1b934d7
+# ╠═e1eb48fe-b6af-4111-81db-8885799e9c5a
+# ╠═ce6630f3-99b2-4d28-b34e-af355efeed95
+# ╠═2afb0032-c5d9-4a02-b9d8-d5fb92bc289d
+# ╠═3af40ab8-a627-4d1e-b739-6377aecbdf84
+# ╠═0010890f-2717-4bb7-a411-77b9c3e11b2c
+# ╠═9babc512-48b1-4fcc-b102-cc43b953918e
+# ╠═df3d2c39-3763-4371-a29e-448d4f9b5c01
+# ╠═1ee23bd7-4124-4043-b5fe-f06f92f3fc2c
+# ╠═17e657e3-b5d2-46e2-bba6-7aaa6b89c60a
+# ╠═80b2b353-525f-49ec-9e6d-b327dc31925d
+# ╠═091f15c9-d909-43a8-8910-b3a0384011fe
+# ╠═dd25db66-acdc-4ab8-b184-63286aec77d5
+# ╠═cc34e70e-6b87-4d6f-bc5e-0af883605935
+# ╠═d893d4f3-ebaa-4fa6-af1b-888c0994f6b6
+# ╠═01459482-f815-46d5-9452-b1fb07a5f816
+# ╠═c2d335de-0abc-4841-abc9-37a57e094e3c
+# ╠═244069ac-106c-4f08-8616-25b9a7a6109e
 # ╟─00000000-0000-0000-0000-000000000001
 # ╟─00000000-0000-0000-0000-000000000002

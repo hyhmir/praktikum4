@@ -182,5 +182,28 @@ Za tem smo nadaljevali z drugim nihajnim krogom prizemljenim, in opazovali odziv
 \end{center}
 \end{figure}
 
+\begin{table}[!ht]
+\centering
+\begin{tabular}{c|c|c|c}
+$C_0$ [$pF$] & $\nu_1$ [$\pm 250\ Hz$] & $\nu_2$ [$\pm 250\ Hz$] & $\Delta \nu$ [$\pm 500\ Hz$] \\\hline
+  330 & 63000.0 & 69250.0 & 6250.0 \\
+  560 & 60750.0 & 69250.0 & 8500.0 \\
+  820 & 58250.0 & 69000.0 & 10750.0 \\
+  1150 & 56000.0 & 69000.0 & 13000.0 \\
+\end{tabular}
+\caption{tabela meritev maksimumov in razlik med njimi}
+\end{table}
+\newpage
+\noindent V tabeli takoj vidimo, da je drugi maksimum res konstanten in torej neodvisen od sklopitve. Čeprav nismo morali vključiti sklopitve $150\ pF$ zaradi neizraženega drugega vrha, se iz grafa lepo vidi, da se tudi tista ujema. 
+
+Na meritve lahko fitamo funkcijo:
+
+$$
+\Delta \nu = \frac{1}{2\pi}(\omega' - \omega '' + (\omega)_I)
+$$
+kjer je $(\omega)_I$ parameter, kot prej, ki nam bo povedal nekaj o induktivni sklopitvi.
+
+
+
 
 \end{document}
