@@ -7,9 +7,6 @@ using InteractiveUtils
 # ╔═╡ 5fed29c4-3589-11f0-2160-71144c24eba7
 using Plots, DataFrames, Statistics, LsqFit, CSV, RollingFunctions
 
-# ╔═╡ 8eb3b2a3-148f-43f7-b3d0-9833903d93e0
-using PGFPlotsX
-
 # ╔═╡ f41c068d-b490-4b8d-a4ea-a1ef84fab455
 df = CSV.read("data/1del/CSV150.csv", DataFrame);
 
@@ -120,7 +117,7 @@ x_fit = range(minimum(c), maximum(c), length=100);
 y_fit = model(x_fit, fitt.param);
 
 # ╔═╡ 6be15bef-e3ca-4dc8-aed5-5d3e88871dff
-pgfplotsx()
+gr()
 
 # ╔═╡ 139bfcda-b3f8-4e01-b238-bfb9a2e46d7b
 plot(
@@ -136,7 +133,7 @@ scatter!(
     c, dw, 
     yerr=ddw, 
     label="Data", 
-    markersize=5, 
+    markersize=3, 
     color=:blue,
     markeralpha=0.7,
     fmt=:png  # Ensures high-quality output in Pluto
@@ -149,7 +146,7 @@ xlabel!("C_0 [nF]");
 ylabel!("Δω [s⁻1]");
 
 # ╔═╡ 1312273b-dff7-44f6-bd14-0d4ed66975e0
-savefig("porocilo/freq.tex");
+savefig("porocilo/freq.pdf");
 
 # ╔═╡ 41813678-6def-45a0-9019-a22b147df02b
 
@@ -160,7 +157,6 @@ PLUTO_PROJECT_TOML_CONTENTS = """
 CSV = "336ed68f-0bac-5ca0-87d4-7b16caf5d00b"
 DataFrames = "a93c6f00-e57d-5684-b7b6-d8193f3e46c0"
 LsqFit = "2fda8390-95c7-5789-9bda-21331edee243"
-PGFPlotsX = "8314cec4-20b6-5062-9cdb-752b83310925"
 Plots = "91a5bcdd-55d7-5caf-9e0b-520d859cae80"
 RollingFunctions = "b0e4dd01-7b14-53d8-9b45-175a3e362653"
 Statistics = "10745b16-79ce-11e8-11f9-7d13ad32a3b2"
@@ -169,7 +165,6 @@ Statistics = "10745b16-79ce-11e8-11f9-7d13ad32a3b2"
 CSV = "~0.10.15"
 DataFrames = "~1.7.0"
 LsqFit = "~0.15.1"
-PGFPlotsX = "~1.6.2"
 Plots = "~1.40.13"
 RollingFunctions = "~0.8.1"
 """
@@ -180,7 +175,7 @@ PLUTO_MANIFEST_TOML_CONTENTS = """
 
 julia_version = "1.11.5"
 manifest_format = "2.0"
-project_hash = "353171caf920e0cd1d835bafcb6f5139540a6e12"
+project_hash = "04c94d075dd46055805ea00567269aadd3e6c7cc"
 
 [[deps.ADTypes]]
 git-tree-sha1 = "e2478490447631aedba0823d4d7a80b2cc8cdb32"
@@ -216,11 +211,6 @@ deps = ["PtrArrays", "Random"]
 git-tree-sha1 = "9876e1e164b144ca45e9e3198d0b689cadfed9ff"
 uuid = "66dad0bd-aa9a-41b7-9441-69ab47430ed8"
 version = "1.1.3"
-
-[[deps.ArgCheck]]
-git-tree-sha1 = "f9e9a66c9b7be1ad7372bbd9b062d9230c30c5ce"
-uuid = "dce04be8-c92d-5529-be00-80e4d2c0e197"
-version = "2.5.0"
 
 [[deps.ArgTools]]
 uuid = "0dad84c5-d112-42e6-8d28-ef12dabb789f"
@@ -411,12 +401,6 @@ deps = ["Artifacts", "Expat_jll", "JLLWrappers", "Libdl"]
 git-tree-sha1 = "473e9afc9cf30814eb67ffa5f2db7df82c3ad9fd"
 uuid = "ee1fde0b-3d02-5ea6-8484-8dfef6360eab"
 version = "1.16.2+0"
-
-[[deps.DefaultApplication]]
-deps = ["InteractiveUtils"]
-git-tree-sha1 = "c0dfa5a35710a193d83f03124356eef3386688fc"
-uuid = "3f0dd361-4fe0-5fc6-8523-80b14ec94d85"
-version = "1.1.0"
 
 [[deps.DelimitedFiles]]
 deps = ["Mmap"]
@@ -1018,35 +1002,11 @@ git-tree-sha1 = "f07c06228a1c670ae4c87d1276b92c7c597fdda0"
 uuid = "90014a1f-27ba-587c-ab20-58faa44d9150"
 version = "0.11.35"
 
-[[deps.PGFPlotsX]]
-deps = ["ArgCheck", "Dates", "DefaultApplication", "DocStringExtensions", "MacroTools", "OrderedCollections", "Parameters", "Requires", "Tables"]
-git-tree-sha1 = "e5df51ffc01f8771d94c8db2d164be1f6927849c"
-uuid = "8314cec4-20b6-5062-9cdb-752b83310925"
-version = "1.6.2"
-
-    [deps.PGFPlotsX.extensions]
-    ColorsExt = "Colors"
-    ContourExt = "Contour"
-    MeasurementsExt = "Measurements"
-    StatsBaseExt = "StatsBase"
-
-    [deps.PGFPlotsX.weakdeps]
-    Colors = "5ae59095-9a9b-59fe-a467-6f913c188581"
-    Contour = "d38c429a-6771-53c6-b99e-75d170b6e991"
-    Measurements = "eff96d63-e80a-5855-80a2-b1b0885c5ab7"
-    StatsBase = "2913bbd2-ae8a-5f71-8c99-4fb6c76f3a91"
-
 [[deps.Pango_jll]]
 deps = ["Artifacts", "Cairo_jll", "Fontconfig_jll", "FreeType2_jll", "FriBidi_jll", "Glib_jll", "HarfBuzz_jll", "JLLWrappers", "Libdl"]
 git-tree-sha1 = "3b31172c032a1def20c98dae3f2cdc9d10e3b561"
 uuid = "36c8627f-9965-5494-a995-c6b170f724f3"
 version = "1.56.1+0"
-
-[[deps.Parameters]]
-deps = ["OrderedCollections", "UnPack"]
-git-tree-sha1 = "34c0e9ad262e5f7fc75b10a9952ca7692cfc5fbe"
-uuid = "d96e819e-fc66-5662-9728-84c9c7592b0a"
-version = "0.12.3"
 
 [[deps.Parsers]]
 deps = ["Dates", "PrecompileTools", "UUIDs"]
@@ -1405,11 +1365,6 @@ version = "1.5.2"
 deps = ["Random", "SHA"]
 uuid = "cf7118a7-6976-5b1a-9a39-7adc72f591a4"
 version = "1.11.0"
-
-[[deps.UnPack]]
-git-tree-sha1 = "387c1f73762231e86e0c9c5443ce3b4a0a9a0c2b"
-uuid = "3a884ed6-31ef-47d7-9d2a-63182c4928ed"
-version = "1.0.2"
 
 [[deps.Unicode]]
 uuid = "4ec0a83e-493e-50e2-b9ac-8f72acf5a8f5"
@@ -1778,7 +1733,6 @@ version = "1.8.1+0"
 # ╠═32c0a953-d7cb-4084-a366-2dc29ce6e818
 # ╠═2ff5f7cf-46df-4bd6-8d6e-f6a5460852a7
 # ╠═a5a6d23b-652b-4113-83ce-1b1b1756312b
-# ╠═8eb3b2a3-148f-43f7-b3d0-9833903d93e0
 # ╠═6be15bef-e3ca-4dc8-aed5-5d3e88871dff
 # ╠═139bfcda-b3f8-4e01-b238-bfb9a2e46d7b
 # ╠═65b8c6d7-bb84-4916-9897-ba16b61f50a6
