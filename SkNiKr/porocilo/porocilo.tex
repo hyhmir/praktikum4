@@ -147,7 +147,7 @@ kar zelo močno odstopa od izmerjene vrednosti. Razlog za to je v morda večjem 
 
 \begin{figure}[ht]
 \begin{center}
-    \includegraphics[width=8cm]{freq.pdf}
+    \includegraphics[width=10cm]{freq.pdf}
     \caption{Frekvenca utripanja v odvisnosti od sklopitvenega kondenzatorja s fitom}
 \end{center}
 \end{figure}
@@ -157,5 +157,30 @@ $$
 \Delta \omega = \omega' - \omega '' + (\omega)_I
 $$
 kjer je $\omega'$ izmerjena z veliko natančnostjo, $\omega ''$ izračunana iz sklopitvenega kondenzatorja, kot je opisano v uvodu in $(\omega)_I$ je parameter, ki verjetno pride zaradi induktivnosti sklopitve. Glede na fit znaša $(\omega)_I = (5000 \pm 1000)\ s^{-1}$
+
+Za tem smo opazovali resonančni odziv na vsiljeno nihanje brez sklopitvenega kondenzatorja. Merili smo na dva načina; ko je bil drugi krog prizemljen, in ko je bil neprizemljen. Ko je bil drugi krog neprizemljen vidimo dva vrhova, ki ustrezata dvema različnima nihajnima načinoma. Tega načeloma ne bi smeli opaziti, saj nismo imeli nobene sklopitve, a to vseeno lahko razložimo, z neko induktivno sklopitvijo, kot smo to storili tudi v prejšnjem delu vaje.
+
+\begin{figure}[ht]
+\begin{center}
+    \includegraphics[width=10cm]{odziv.pdf}
+    \caption{resonančni odziv nesklopljenih nihal, ko je drugo (ne)ozemljeno}
+\end{center}
+\end{figure}
+Če se osredotočimo samo na graf neprizemljenega drugega kroga, lahko določimo dobroto $Q$ prvega nihajnega kroga. Ta je definirana kot $Q = \frac{\omega_0}{\Delta \omega}$, kjer je $\omega_0$ resonančna frekvenca in $\Delta \omega$ širina resonančne krivulje. Na ta način dobimo:
+
+$$
+Q = 33.8 \pm 8.5
+$$
+
+\newpage
+Za tem smo nadaljevali z drugim nihajnim krogom prizemljenim, in opazovali odziv. Pri vsaki meritve smo dobili dva maksimuma, kjer je vsak predstavljal eno izmed lastnih nihanj sistema. Opazimo, da je en stalno na istem mestu, to je nihanje ki je ekvivalentno nihanju enega samega nihajnega kroga in ni odvisno od sklopitve, medtem ko drugo je odvisno od sklopitve. Zanima nas odvisnost razlike teh maksimumov od sklopitve.
+
+\begin{figure}[ht]
+\begin{center}
+    \includegraphics[width=10cm]{multi.pdf}
+    \caption{Resonančni odziv sklopljenih krogov pri drugačnih sklopitvah}
+\end{center}
+\end{figure}
+
 
 \end{document}

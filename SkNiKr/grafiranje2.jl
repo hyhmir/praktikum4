@@ -10,6 +10,9 @@ using CSV, DataFrames
 # ╔═╡ c5169dea-4caf-450f-8c17-cdd26d8a3a2b
 using Plots
 
+# ╔═╡ 9b86ca33-1652-42f6-b9e9-c39650c326d4
+using Measurements
+
 # ╔═╡ b2db3574-ac7f-4cd0-b35a-ba6b2a94411f
 df = CSV.read("data/2del/2del_kratkistik.dat", DataFrame, header=["w", "odziv"]);
 
@@ -32,18 +35,77 @@ xlabel!("ω [s⁻¹]");
 ylabel!("U_1 [V]");
 
 # ╔═╡ aa3f2f07-869f-4e30-96d6-c804402cbd14
-savefig("porocilo/odziv.pdf")
+savefig("porocilo/odziv.pdf");
+
+# ╔═╡ 65117db9-c994-4140-8318-16374f30a049
+df.w[argmax(df.odziv)]
+
+# ╔═╡ 4cf25c66-ac77-4860-85b2-3f2f66c0b04d
+max = df.odziv[argmax(df.odziv)]
+
+# ╔═╡ c8be29f6-7f05-489b-a9d2-81fe32cb6301
+trashold = max / sqrt(2)
+
+# ╔═╡ bb5b1862-69e7-479a-b858-060165420568
+above = df[df.odziv .>= trashold, :];
+
+# ╔═╡ 2b2a4cfc-70c4-45af-bfed-b71a39eba277
+above.w[1] - above.w[end]
+
+# ╔═╡ 8adea607-ea92-4833-9aa7-dad070e7efa4
+Q = (df.w[argmax(df.odziv)] ± 250) / (above.w[1] - above.w[end] ± 500)
+
+# ╔═╡ 29f893df-0692-4e44-b4c7-2c1c6a172581
+df30 = CSV.read("data/2del/3del0.dat", DataFrame, header=["w", "odziv"]);
+
+# ╔═╡ dd4a5ec0-b5c6-4066-a722-c876707a0191
+df3150 = CSV.read("data/2del/3del150.dat", DataFrame, header=["w", "odziv"]) .* 0.5 .+ CSV.read("data/2del/3del150_1.dat", DataFrame, header=["w", "odziv"]) .* 0.5;
+
+# ╔═╡ 39f82281-4c15-4368-a33c-3255af14ce0d
+df3330 = CSV.read("data/2del/3del330.dat", DataFrame, header=["w", "odziv"]) .* 0.5 .+ CSV.read("data/2del/3del330_1.dat", DataFrame, header=["w", "odziv"]) .* 0.5;
+
+# ╔═╡ 4825fc14-e64a-4431-b2fd-1f6fa4ac5dbc
+df3560 = CSV.read("data/2del/3del560.dat", DataFrame, header=["w", "odziv"]) .* 0.5 .+ CSV.read("data/2del/3del560_1.dat", DataFrame, header=["w", "odziv"]) .* 0.5;
+
+# ╔═╡ 585880f9-ef85-4382-9546-b08430249095
+df3820 = CSV.read("data/2del/3del820.dat", DataFrame, header=["w", "odziv"]) .* 0.5 .+ CSV.read("data/2del/3del820_1.dat", DataFrame, header=["w", "odziv"]) .* 0.5;
+
+# ╔═╡ 52b5cfb3-51dc-496d-9f21-047f288ae6f4
+df31150 = CSV.read("data/2del/3del1150.dat", DataFrame, header=["w", "odziv"]) .* 0.5 .+ CSV.read("data/2del/3del1150_1.dat", DataFrame, header=["w", "odziv"]) .* 0.5;
+
+# ╔═╡ 0d26d417-2532-48c5-936b-9c7c4faba2d1
+plot(df3150.w, df3150.odziv, label="150");
+
+# ╔═╡ bd1c0407-00fd-42e8-8d13-c153c65809ff
+plot!(df3330.w, df3330.odziv, label="330");
+
+# ╔═╡ f5836973-93a4-4aaa-8105-450002c5f2c9
+plot!(df3560.w, df3560.odziv, label="560");
+
+# ╔═╡ 4a780e45-218f-4230-bdb9-b60825f01101
+plot!(df3820.w, df3820.odziv, label="820");
+
+# ╔═╡ be1a8295-50dd-4fdf-b3ef-368229b9d77d
+plot!(df31150.w, df31150.odziv, label="1150");
+
+# ╔═╡ 3c439ade-5733-489d-a280-492a530142f7
+savefig("porocilo/multi.pdf")
+
+# ╔═╡ 413df00e-b4f0-4e05-9949-32058a942182
+
 
 # ╔═╡ 00000000-0000-0000-0000-000000000001
 PLUTO_PROJECT_TOML_CONTENTS = """
 [deps]
 CSV = "336ed68f-0bac-5ca0-87d4-7b16caf5d00b"
 DataFrames = "a93c6f00-e57d-5684-b7b6-d8193f3e46c0"
+Measurements = "eff96d63-e80a-5855-80a2-b1b0885c5ab7"
 Plots = "91a5bcdd-55d7-5caf-9e0b-520d859cae80"
 
 [compat]
 CSV = "~0.10.15"
 DataFrames = "~1.7.0"
+Measurements = "~2.12.0"
 Plots = "~1.40.13"
 """
 
@@ -53,7 +115,7 @@ PLUTO_MANIFEST_TOML_CONTENTS = """
 
 julia_version = "1.11.5"
 manifest_format = "2.0"
-project_hash = "0273d62632aac6e126ef93346f1adb4d6a68879b"
+project_hash = "34fb93b29eafaf93a8959aa7f62480b2c748b9ce"
 
 [[deps.AliasTables]]
 deps = ["PtrArrays", "Random"]
@@ -95,6 +157,12 @@ deps = ["Artifacts", "Bzip2_jll", "CompilerSupportLibraries_jll", "Fontconfig_jl
 git-tree-sha1 = "2ac646d71d0d24b44f3f8c84da8c9f4d70fb67df"
 uuid = "83423d85-b0ee-5818-9007-b63ccbeb887a"
 version = "1.18.4+0"
+
+[[deps.Calculus]]
+deps = ["LinearAlgebra"]
+git-tree-sha1 = "9cb23bbb1127eefb022b022481466c0f1127d430"
+uuid = "49dc2e85-a5d0-5ad3-a950-438e2897f1b9"
+version = "0.5.2"
 
 [[deps.CodecZlib]]
 deps = ["TranscodingStreams", "Zlib_jll"]
@@ -566,6 +634,28 @@ version = "1.1.9"
 deps = ["Artifacts", "Libdl"]
 uuid = "c8ffd9c3-330d-5841-b78e-0817d7145fa1"
 version = "2.28.6+0"
+
+[[deps.Measurements]]
+deps = ["Calculus", "LinearAlgebra", "Printf"]
+git-tree-sha1 = "3019b28107f63ee881f5883da916dd9b6aa294c1"
+uuid = "eff96d63-e80a-5855-80a2-b1b0885c5ab7"
+version = "2.12.0"
+
+    [deps.Measurements.extensions]
+    MeasurementsBaseTypeExt = "BaseType"
+    MeasurementsJunoExt = "Juno"
+    MeasurementsMakieExt = "Makie"
+    MeasurementsRecipesBaseExt = "RecipesBase"
+    MeasurementsSpecialFunctionsExt = "SpecialFunctions"
+    MeasurementsUnitfulExt = "Unitful"
+
+    [deps.Measurements.weakdeps]
+    BaseType = "7fbed51b-1ef5-4d67-9085-a4a9b26f478c"
+    Juno = "e5e0dc1b-0480-54bc-9374-aad01c23163d"
+    Makie = "ee78f7c6-11fb-53f2-987a-cfe4a2b5a57a"
+    RecipesBase = "3cdcf5f2-1ef4-517c-9805-6587b60abb01"
+    SpecialFunctions = "276daf66-3868-5448-9aa4-cd146d93841b"
+    Unitful = "1986cc42-f94f-5a68-af5c-568840ba703d"
 
 [[deps.Measures]]
 git-tree-sha1 = "c13304c81eec1ed3af7fc20e75fb6b26092a1102"
@@ -1275,5 +1365,25 @@ version = "1.8.1+0"
 # ╠═29841c57-a3e9-463f-bc90-e3829c7eff49
 # ╠═62582129-4bfb-4cb8-b6ae-5ada33ddad84
 # ╠═aa3f2f07-869f-4e30-96d6-c804402cbd14
+# ╠═65117db9-c994-4140-8318-16374f30a049
+# ╠═4cf25c66-ac77-4860-85b2-3f2f66c0b04d
+# ╠═c8be29f6-7f05-489b-a9d2-81fe32cb6301
+# ╠═bb5b1862-69e7-479a-b858-060165420568
+# ╠═2b2a4cfc-70c4-45af-bfed-b71a39eba277
+# ╠═9b86ca33-1652-42f6-b9e9-c39650c326d4
+# ╠═8adea607-ea92-4833-9aa7-dad070e7efa4
+# ╠═29f893df-0692-4e44-b4c7-2c1c6a172581
+# ╠═dd4a5ec0-b5c6-4066-a722-c876707a0191
+# ╠═39f82281-4c15-4368-a33c-3255af14ce0d
+# ╠═4825fc14-e64a-4431-b2fd-1f6fa4ac5dbc
+# ╠═585880f9-ef85-4382-9546-b08430249095
+# ╠═52b5cfb3-51dc-496d-9f21-047f288ae6f4
+# ╠═0d26d417-2532-48c5-936b-9c7c4faba2d1
+# ╠═bd1c0407-00fd-42e8-8d13-c153c65809ff
+# ╠═f5836973-93a4-4aaa-8105-450002c5f2c9
+# ╠═4a780e45-218f-4230-bdb9-b60825f01101
+# ╠═be1a8295-50dd-4fdf-b3ef-368229b9d77d
+# ╠═3c439ade-5733-489d-a280-492a530142f7
+# ╠═413df00e-b4f0-4e05-9949-32058a942182
 # ╟─00000000-0000-0000-0000-000000000001
 # ╟─00000000-0000-0000-0000-000000000002
