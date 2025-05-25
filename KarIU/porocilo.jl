@@ -56,6 +56,13 @@ md"""
 """
 
 # ╔═╡ 1214b755-3ad2-4bda-8070-da5671c53e13
+md"""
+### Upornik:
+
+(Idealni) upornik, ima to lastnost, da sta na njem napetost in tok konstantno v fazi, sepravi je argument impedance $=0$. Posledično je njegov odziv popolnoma neodvisen od frekvence. Upornost določimo tako, da določimo naklon grafa $I(U)$.
+"""
+
+# ╔═╡ cb8d5f8b-7596-46cc-a06e-cd89f8277d16
 
 
 # ╔═╡ 00000000-0000-0000-0000-000000000001
@@ -1403,6 +1410,7 @@ version = "17.4.0+2"
 # ╟─9712fc1a-e03e-4a2d-8d9e-dd71c739f9be
 # ╟─a188b9c2-a5ce-48d3-a5ab-f3ec4d628a7c
 # ╟─77f6c8cb-0539-4718-9a9b-e250846b8306
-# ╠═1214b755-3ad2-4bda-8070-da5671c53e13
+# ╟─1214b755-3ad2-4bda-8070-da5671c53e13
+# ╠═cb8d5f8b-7596-46cc-a06e-cd89f8277d16
 # ╟─00000000-0000-0000-0000-000000000001
 # ╟─00000000-0000-0000-0000-000000000002
