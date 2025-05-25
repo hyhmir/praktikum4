@@ -4,11 +4,8 @@
 using Markdown
 using InteractiveUtils
 
-# ╔═╡ 824e86c2-38de-11f0-2740-b3a1e726f4fb
-using CSV, DataFrames
-
 # ╔═╡ 34081d33-9fc7-4546-b5a0-eba0abbebb41
-using Images
+using Images, ImageShow
 
 # ╔═╡ 20b509e1-a08d-4b1e-8b84-8ad753e32c59
 md"""
@@ -63,18 +60,208 @@ md"""
 """
 
 # ╔═╡ cb8d5f8b-7596-46cc-a06e-cd89f8277d16
+load("data/upornik_50hz.jpg")
 
+# ╔═╡ 871edeff-33e9-4fab-906f-09ed8b52d36c
+md"""
+Zgornjo karakteristiko smo dobili pri vzbujanju upornika z sinusnim signalom z amplitudo $9V$ in frekvenco $50Hz$. Iz slike lahko odčitamo naklon premice $k = 1$ od koder sledi:
+
+$$R = kR_0 = 1000\ \Omega$$
+
+"""
+
+# ╔═╡ dbe076e0-858a-4654-919a-48774e96413e
+md"""
+### Kondenzator:
+
+Tok skozi kondenzator je sorazmeren z odvodom napetosti:
+
+$$I = C \frac{dU}{dt}$$
+
+kar pomeni da je tok skozi kondenzator zamaknjen za 90° pred napetostjo. Iz tega sledi, da je impedanca kondenzatorja:
+
+$$Z = \frac{U}{I} = \frac{U}{C \frac{dU}{dt}} = \frac{1}{i \omega C}$$
+
+$$|Z| =\frac{1}{\omega C}$$
+
+$$arg(Z) = -\frac{\pi}{2}$$
+
+Vidimo, da napetost "prehiteva" tok za 90°. To pomeni, da je napetost na kondenzatorju največja, ko je tok enak 0.
+
+Ko je frekvenca izmenične napetosti dovolj majhna, se kondenzator lahko polni in prazni hitreje od frekvence napetosti. Takrat je 
+fazni zamik med napetostjo in tokom -90°. V tem primeru, lahko iz I(U) karakteristike iz razmerja med amplitudi toka ($\Delta x$) in napetosti ($\Delta y$) izmerimo
+kapaciteto kondenzatorja:
+
+"""
+
+# ╔═╡ b8a541cf-541a-427b-af40-8fa69e7bd877
+load("data/kondenzator_100Hz.jpg")
+
+# ╔═╡ c4409d9a-0082-43ea-bfc6-1825bcee1a77
+md"""
+Karakteristiko smo izmerili pri vzbujanju z amplitudo $9V$ in frekvenco $100Hz$
+"""
+
+# ╔═╡ da0c8ab4-ace6-46cb-828e-235ef9a90912
+md"""
+Iz prejšnjih formul dobimo:
+
+$$C = \frac{\Delta x}{\omega \Delta y R_0} = 1.1\ \mu F$$
+"""
+
+# ╔═╡ d1380fbe-1245-4e12-b083-7877a70c11d5
+md"""
+Če bi poiskus izvedli pri višjih frekvencah bi prišli do težav, saj kondenzator ne bi *dohajal* s hitrostjo polnjenja in praznenja
+"""
+
+# ╔═╡ 563ff29b-8d59-4c14-a8f1-a7cf79300dca
+md"""
+### Tuljava:
+
+Inducirana napetost na tuljavi je sorazmerna z odvodom toka skoznjo:
+
+$$U = L \frac{dI}{dt}$$
+
+kar pomeni da je napetost skozi induktor zamaknjen za 90° za tokom. Iz tega sledi, da je impedanca induktorja:
+
+$$Z = \frac{U}{I} = L \frac{dI}{dt} \frac{1}{I} = i \omega L$$
+
+$$|Z| = \omega L$$
+
+$$arg(Z) = \frac{\pi}{2}$$
+
+Iz česar vidimo, da tok "prehiteva" napetost za 90°.
+"""
+
+# ╔═╡ 510cc7c6-32c2-4a3f-b6aa-c37cc31e1658
+md"""
+Ko je fazni zamik med napetostjo in tokom 90°, lahko iz I(U) karakteristike iz razmerja med amplitudi toka in napetosti izmerimo induktivnost tuljave:
+
+"""
+
+# ╔═╡ f8b28226-db69-4c7b-99fe-180ae6edbb11
+load("data/tuljava_1000Hz.jpg")
+
+# ╔═╡ d5e0189d-c989-4f0c-9920-775a55739e0a
+md"""
+Karakteristiko smo izmerili pri vzbujanju z $9V$ pri frekvenci $1000Hz$
+"""
+
+# ╔═╡ 91b54482-4259-4888-a542-bc1b528bdbed
+md"""
+Iz prejšnjih formul dobimo:
+
+$$L = \frac{\Delta y R_0}{\Delta x \omega} = 150\ mH$$
+"""
+
+# ╔═╡ 2837b63f-0035-4fbe-8ffd-8d01030bb002
+md"""
+Pri idelani tuljavi je fazni zamik med napetostjo in tokom vedno 90°.
+V praksi ima tuljava tudi neko upornost v jedru pa opazimo histerezne pojave.
+Pri nizkih frekvencah je fazni zamik manjši od 90° zaradi upornosti žic, pri visokih frekvencah pa lahko je lahko spet 
+manjši od 90° zaradi histereznih izgub v jedru in zaradi parazitskih kapacitet zaradi navitja žic.
+Izmeril sem karaktetistiko tuljave pri različnih frekvencah in meril tudi fazni zamik.
+
+"""
+
+# ╔═╡ d32d751c-96ad-455c-98d1-26cafedd9f7c
+begin
+img1 = load("data/tuljava_10Hz.jpg")
+img2 = load("data/tuljava_100Hz.jpg")
+img3 = load("data/tuljava_10kHz.jpg")
+img4 = load("data/tuljava_100kHz.jpg")
+end;
+
+# ╔═╡ 59f232c5-c811-486f-b7fa-2b206f4845cb
+mosaicview(img1, img3, img2, img4, nrow=2)
+
+# ╔═╡ f0777a1e-b8a1-4e1c-b5bf-205c09ed80f2
+md"""
+Na slikah vidimo karakteristiko tuljave pri različnih frekvencah. Po vrsti (frekveca, fazni zamik): (10ν, 40°), (100ν, 83°), (10kν, 90°), (100kν, -75°)
+"""
+
+# ╔═╡ 081f05bb-462f-4c02-afef-6d74d194f6d7
+md"""
+Lepo vidimo, da je pri nižjih frekvencah fazni zamik manjši od 90° zaradi upornosti žic, pri zelo visoki frekvenci pa začne napetost celo prehitevati tok, tako kot pri kondenzatorju, zaradi parazitske napetosti.
+"""
+
+# ╔═╡ fdf480f5-2285-4f11-8c2f-87559ce6bfb7
+md"""
+### Dioda:
+
+Dokler je napetost na diodi premajhna, skozi diodo teže zanemarljiv tok, ko pa napetost preseže določeno vrednost (da preseže potencialni skok na p-n stiku), pa začne prevajati s praktično ničelno upornostjo. Opazimo tudi da frekvenca ne vpliva na karakteristioko diod.
+
+Zanima nas pri kateri napetosti se zgodi prehod.
+"""
+
+# ╔═╡ 7130a962-ec2d-48a6-a6b8-a4a7516ceec5
+begin
+	led1 = load("data/dioda_50Hz.jpg")
+	led2 = load("data/bela_LED_50Hz.jpg")
+	led3 = load("data/dioda2_50Hz.jpg")
+	led4 = load("data/rdeca_LED_50Hz.jpg")
+end;
+
+# ╔═╡ 0bf26797-b7f9-4ae6-96d5-f51475697d93
+mosaicview(led1, led3, led2, led4, nrow=2)
+
+# ╔═╡ fe77436a-1158-498a-9e65-095c05d9400f
+md"""
+Zgoraj so odzivi različnih diod. Najprej imamo klasično diodo (IR), za tem belo, zeleno in rdečo svetlečo diodo (LEDico). Zanima nas pri kateri napetosti najdemo *koleno* karakteristike: Prečitane vrednosti so po vrsti: 250 mV, 500 mV, 900 mV, 900 mV.
+"""
+
+# ╔═╡ 2a104456-a06a-40e3-ba99-bc6dd944e7c1
+md"""
+### Zenerjeva dioda:
+
+Zenerjeva dioda se od navadne razlikuje v tem, da prevaja tudi v drugo smer, pri navadno večji napetosti
+"""
+
+# ╔═╡ 13c93208-9fe5-405e-ae8a-52823d70e2b4
+load("data/Zenerjeva_dioda_50Hz.jpg")
+
+# ╔═╡ a4da88cf-fe35-4cc8-bf1c-f6fd33ffa70c
+md"""
+Na sliki je karakteristika pri vzbujevalni napetosti $9V$ s frekvenco $50Hz$. Koleni karakteristike najdemo pri $0.2V$ in pri $-1.7V$.
+
+Poleg tega opazimo tudi frekvenčno odvisnost faznega zamika med napetostjo in tokom.
+"""
+
+# ╔═╡ 86c52aa0-1315-45b6-a3f7-4601b6daa6b1
+md"""
+### Baterija:
+
+Karakteristika baterije je ekvivalentna karakteristiki upornika, le da je nekoliko zamaknjena zaradi lastne napetosti in tako graf ne gre čez izhodišče. Kot pri uporniku lahko tudi tu odčitamo (notranji) upor preko naklona premice. Tako dobimo:
+
+$$R_n = 1.5\ \Omega$$
+"""
+
+# ╔═╡ 31edd9b6-e316-437a-bbd8-05478f63913a
+load("data/baterija_50Hz.jpg")
+
+# ╔═╡ 97efde25-af37-49ed-a165-c43b802dd5df
+md"""
+### Akumulator:
+
+Akumulator se za razliko od baterije lahko polni. To je razlog zakaj v karakteristiki opazimo histerezni pojav:
+"""
+
+# ╔═╡ 1a6116d0-4c54-4b23-ac49-0f18a03747fb
+load("data/akumulator_71.4Hz.jpg")
+
+# ╔═╡ f86d9537-3e96-466a-a251-fd0cb45d5828
+md"""
+Na sliki vidimo karakteristiko akumulatorja ko se ta polni in prazni pri vzbujevalni napetosti $6V$ infrekvenci $71.6 Hz$.
+"""
 
 # ╔═╡ 00000000-0000-0000-0000-000000000001
 PLUTO_PROJECT_TOML_CONTENTS = """
 [deps]
-CSV = "336ed68f-0bac-5ca0-87d4-7b16caf5d00b"
-DataFrames = "a93c6f00-e57d-5684-b7b6-d8193f3e46c0"
+ImageShow = "4e3cecfd-b093-5904-9786-8bbb286a6a31"
 Images = "916415d5-f1e6-5110-898d-aaa5f9f070e0"
 
 [compat]
-CSV = "~0.10.15"
-DataFrames = "~1.7.0"
+ImageShow = "~0.3.8"
 Images = "~0.26.1"
 """
 
@@ -84,7 +271,7 @@ PLUTO_MANIFEST_TOML_CONTENTS = """
 
 julia_version = "1.11.5"
 manifest_format = "2.0"
-project_hash = "ee25e16a419ff3003dd29a60f903b2e211f513ad"
+project_hash = "42faab56b328e439b7c7ae521bf419f4b1d543af"
 
 [[deps.AbstractFFTs]]
 deps = ["LinearAlgebra"]
@@ -196,12 +383,6 @@ git-tree-sha1 = "5a97e67919535d6841172016c9530fd69494e5ec"
 uuid = "2a0fbf3d-bb9c-48f3-b0a9-814d99fd7ab9"
 version = "0.2.6"
 
-[[deps.CSV]]
-deps = ["CodecZlib", "Dates", "FilePathsBase", "InlineStrings", "Mmap", "Parsers", "PooledArrays", "PrecompileTools", "SentinelArrays", "Tables", "Unicode", "WeakRefStrings", "WorkerUtilities"]
-git-tree-sha1 = "deddd8725e5e1cc49ee205a1964256043720a6c3"
-uuid = "336ed68f-0bac-5ca0-87d4-7b16caf5d00b"
-version = "0.10.15"
-
 [[deps.CatIndices]]
 deps = ["CustomUnitRanges", "OffsetArrays"]
 git-tree-sha1 = "a0f80a09780eed9b1d106a1bf62041c2efc995bc"
@@ -229,12 +410,6 @@ deps = ["Distances", "LinearAlgebra", "NearestNeighbors", "Printf", "Random", "S
 git-tree-sha1 = "3e22db924e2945282e70c33b75d4dde8bfa44c94"
 uuid = "aaaa29a8-35af-508c-8bc3-b662a17a0fe5"
 version = "0.15.8"
-
-[[deps.CodecZlib]]
-deps = ["TranscodingStreams", "Zlib_jll"]
-git-tree-sha1 = "962834c22b66e32aa10f7611c08c8ca4e20749a9"
-uuid = "944b1d66-785c-5afd-91f1-9de20f533193"
-version = "0.7.8"
 
 [[deps.ColorSchemes]]
 deps = ["ColorTypes", "ColorVectorSpace", "Colors", "FixedPointNumbers", "PrecompileTools", "Random"]
@@ -308,11 +483,6 @@ git-tree-sha1 = "fcbb72b032692610bfbdb15018ac16a36cf2e406"
 uuid = "adafc99b-e345-5852-983c-f28acb93d879"
 version = "0.3.1"
 
-[[deps.Crayons]]
-git-tree-sha1 = "249fe38abf76d48563e2f4556bebd215aa317e15"
-uuid = "a8cc5b0e-0ffa-5ad4-8c14-923d3ee1735f"
-version = "4.1.1"
-
 [[deps.CustomUnitRanges]]
 git-tree-sha1 = "1a3f97f907e6dd8983b744d2642651bb162a3f7a"
 uuid = "dc8bdbbb-1ca9-579f-8c36-e416f6a65cce"
@@ -323,22 +493,11 @@ git-tree-sha1 = "abe83f3a2f1b857aac70ef8b269080af17764bbe"
 uuid = "9a962f9c-6df0-11e9-0e5d-c546b8b5ee8a"
 version = "1.16.0"
 
-[[deps.DataFrames]]
-deps = ["Compat", "DataAPI", "DataStructures", "Future", "InlineStrings", "InvertedIndices", "IteratorInterfaceExtensions", "LinearAlgebra", "Markdown", "Missings", "PooledArrays", "PrecompileTools", "PrettyTables", "Printf", "Random", "Reexport", "SentinelArrays", "SortingAlgorithms", "Statistics", "TableTraits", "Tables", "Unicode"]
-git-tree-sha1 = "fb61b4812c49343d7ef0b533ba982c46021938a6"
-uuid = "a93c6f00-e57d-5684-b7b6-d8193f3e46c0"
-version = "1.7.0"
-
 [[deps.DataStructures]]
 deps = ["Compat", "InteractiveUtils", "OrderedCollections"]
 git-tree-sha1 = "4e1fe97fdaed23e9dc21d4d664bea76b65fc50a0"
 uuid = "864edb3b-99cc-5e75-8d2d-829cb0a9cfe8"
 version = "0.18.22"
-
-[[deps.DataValueInterfaces]]
-git-tree-sha1 = "bfc1187b79289637fa0ef6d4436ebdfe6905cbd6"
-uuid = "e2d170a0-9d28-54be-80f0-106bbe20a464"
-version = "1.0.0"
 
 [[deps.Dates]]
 deps = ["Printf"]
@@ -400,20 +559,6 @@ version = "1.17.0"
 
     [deps.FileIO.weakdeps]
     HTTP = "cd3eb016-35fb-5094-929b-558a96fad6f3"
-
-[[deps.FilePathsBase]]
-deps = ["Compat", "Dates"]
-git-tree-sha1 = "3bab2c5aa25e7840a4b065805c0cdfc01f3068d2"
-uuid = "48062228-2e41-5def-b9a4-89aafe57970f"
-version = "0.9.24"
-
-    [deps.FilePathsBase.extensions]
-    FilePathsBaseMmapExt = "Mmap"
-    FilePathsBaseTestExt = "Test"
-
-    [deps.FilePathsBase.weakdeps]
-    Mmap = "a63ad114-7e13-5084-954f-fe012c677804"
-    Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
 
 [[deps.FileWatching]]
 uuid = "7b1f6079-737a-58dc-b8bc-7a2ca5c1b5ee"
@@ -589,19 +734,6 @@ git-tree-sha1 = "d1b1b796e47d94588b3757fe84fbf65a5ec4a80d"
 uuid = "d25df0c9-e2be-5dd7-82c8-3ad0b3e990b9"
 version = "0.1.5"
 
-[[deps.InlineStrings]]
-git-tree-sha1 = "6a9fde685a7ac1eb3495f8e812c5a7c3711c2d5e"
-uuid = "842dd82b-1e85-43dc-bf29-5d0ee9dffc48"
-version = "1.4.3"
-
-    [deps.InlineStrings.extensions]
-    ArrowTypesExt = "ArrowTypes"
-    ParsersExt = "Parsers"
-
-    [deps.InlineStrings.weakdeps]
-    ArrowTypes = "31f734f8-188a-4ce0-8406-c8a06bd891cd"
-    Parsers = "69de0a69-1ddd-5017-9359-2bf0b02dc9f0"
-
 [[deps.IntegralArrays]]
 deps = ["ColorTypes", "FixedPointNumbers", "IntervalSets"]
 git-tree-sha1 = "b842cbff3f44804a84fda409745cc8f04c029a20"
@@ -642,11 +774,6 @@ weakdeps = ["Random", "RecipesBase", "Statistics"]
     IntervalSetsRecipesBaseExt = "RecipesBase"
     IntervalSetsStatisticsExt = "Statistics"
 
-[[deps.InvertedIndices]]
-git-tree-sha1 = "6da3c4316095de0f5ee2ebd875df8721e7e0bdbe"
-uuid = "41ab1584-1d38-5bbf-9106-f11c6c58b48f"
-version = "1.3.1"
-
 [[deps.IrrationalConstants]]
 git-tree-sha1 = "e2222959fbc6c19554dc15174c81bf7bf3aa691c"
 uuid = "92d709cd-6900-40b7-9082-c6be49f344b6"
@@ -656,11 +783,6 @@ version = "0.2.4"
 git-tree-sha1 = "42d5f897009e7ff2cf88db414a389e5ed1bdd023"
 uuid = "c8e1da08-722c-5040-9ed9-7db0dc04731e"
 version = "1.10.0"
-
-[[deps.IteratorInterfaceExtensions]]
-git-tree-sha1 = "a3f24677c21f5bbe9d2a714f95dcd58337fb2856"
-uuid = "82899510-4779-5014-852e-03e436cf321d"
-version = "1.0.0"
 
 [[deps.JLD2]]
 deps = ["FileIO", "MacroTools", "Mmap", "OrderedCollections", "PrecompileTools", "Requires", "TranscodingStreams"]
@@ -691,11 +813,6 @@ deps = ["Artifacts", "JLLWrappers", "Libdl"]
 git-tree-sha1 = "aaafe88dccbd957a8d82f7d05be9b69172e0cee3"
 uuid = "88015f11-f218-50d7-93a8-a6af411a945d"
 version = "4.0.1+0"
-
-[[deps.LaTeXStrings]]
-git-tree-sha1 = "dda21b8cbd6a6c40d9d02a73230f9d70fed6918c"
-uuid = "b964fa9f-0449-5b57-a5c2-d3ea65f4040f"
-version = "1.4.0"
 
 [[deps.LayoutPointers]]
 deps = ["ArrayInterface", "LinearAlgebra", "ManualMemory", "SIMDTypes", "Static", "StaticArrayInterface"]
@@ -939,12 +1056,6 @@ git-tree-sha1 = "34c0e9ad262e5f7fc75b10a9952ca7692cfc5fbe"
 uuid = "d96e819e-fc66-5662-9728-84c9c7592b0a"
 version = "0.12.3"
 
-[[deps.Parsers]]
-deps = ["Dates", "PrecompileTools", "UUIDs"]
-git-tree-sha1 = "7d2f8f21da5db6a806faf7b9b292296da42b2810"
-uuid = "69de0a69-1ddd-5017-9359-2bf0b02dc9f0"
-version = "2.8.3"
-
 [[deps.Pkg]]
 deps = ["Artifacts", "Dates", "Downloads", "FileWatching", "LibGit2", "Libdl", "Logging", "Markdown", "Printf", "Random", "SHA", "TOML", "Tar", "UUIDs", "p7zip_jll"]
 uuid = "44cfe95a-1eb2-52ea-b672-e2afdf69b78f"
@@ -984,12 +1095,6 @@ version = "4.0.19"
     MakieCore = "20f20a25-4f0e-4fdf-b5d1-57303727442b"
     MutableArithmetics = "d8a4904e-b15c-11e9-3269-09a3773c0cb0"
 
-[[deps.PooledArrays]]
-deps = ["DataAPI", "Future"]
-git-tree-sha1 = "36d8b4b899628fb92c2749eb488d884a926614d3"
-uuid = "2dfb63ee-cc39-5dd5-95bd-886bf059d720"
-version = "1.4.3"
-
 [[deps.PrecompileTools]]
 deps = ["Preferences"]
 git-tree-sha1 = "5aa36f7049a63a1528fe8f7c3f2113413ffd4e1f"
@@ -1001,12 +1106,6 @@ deps = ["TOML"]
 git-tree-sha1 = "9306f6085165d270f7e3db02af26a400d580f5c6"
 uuid = "21216c6a-2e73-6563-6e65-726566657250"
 version = "1.4.3"
-
-[[deps.PrettyTables]]
-deps = ["Crayons", "LaTeXStrings", "Markdown", "PrecompileTools", "Printf", "Reexport", "StringManipulation", "Tables"]
-git-tree-sha1 = "1101cd475833706e4d0e7b122218257178f48f34"
-uuid = "08abe8d2-0d0c-5749-adfa-8a2ac140af0d"
-version = "2.4.0"
 
 [[deps.Printf]]
 deps = ["Unicode"]
@@ -1120,12 +1219,6 @@ deps = ["IfElse", "Static", "VectorizationBase"]
 git-tree-sha1 = "456f610ca2fbd1c14f5fcf31c6bfadc55e7d66e0"
 uuid = "476501e8-09a2-5ece-8869-fb82de89a1fa"
 version = "0.6.43"
-
-[[deps.SentinelArrays]]
-deps = ["Dates", "Random"]
-git-tree-sha1 = "712fb0231ee6f9120e005ccd56297abbc053e7e0"
-uuid = "91c51154-3ec4-41a3-a24f-3f23e20d615c"
-version = "1.4.8"
 
 [[deps.Serialization]]
 uuid = "9e88b42a-f829-5b0c-bbe9-9e923198166b"
@@ -1246,12 +1339,6 @@ git-tree-sha1 = "b81c5035922cc89c2d9523afc6c54be512411466"
 uuid = "2913bbd2-ae8a-5f71-8c99-4fb6c76f3a91"
 version = "0.34.5"
 
-[[deps.StringManipulation]]
-deps = ["PrecompileTools"]
-git-tree-sha1 = "725421ae8e530ec29bcbdddbe91ff8053421d023"
-uuid = "892a3eda-7b42-436c-8928-eab12a02cf0e"
-version = "0.4.1"
-
 [[deps.StyledStrings]]
 uuid = "f489334b-da3d-4c2e-b8f0-e476e12c162b"
 version = "1.11.0"
@@ -1265,18 +1352,6 @@ version = "7.7.0+0"
 deps = ["Dates"]
 uuid = "fa267f1f-6049-4f14-aa54-33bafae1ed76"
 version = "1.0.3"
-
-[[deps.TableTraits]]
-deps = ["IteratorInterfaceExtensions"]
-git-tree-sha1 = "c06b2f539df1c6efa794486abfb6ed2022561a39"
-uuid = "3783bdb8-4a98-5b6b-af9a-565f29a5fe9c"
-version = "1.0.1"
-
-[[deps.Tables]]
-deps = ["DataAPI", "DataValueInterfaces", "IteratorInterfaceExtensions", "OrderedCollections", "TableTraits"]
-git-tree-sha1 = "598cd7c1f68d1e205689b1c2fe65a9f85846f297"
-uuid = "bd369af6-aec1-5ad0-b16a-f7cc5008161c"
-version = "1.12.0"
 
 [[deps.Tar]]
 deps = ["ArgTools", "SHA"]
@@ -1332,22 +1407,11 @@ git-tree-sha1 = "4ab62a49f1d8d9548a1c8d1a75e5f55cf196f64e"
 uuid = "3d5dd08c-fd9d-11e8-17fa-ed2836048c2f"
 version = "0.21.71"
 
-[[deps.WeakRefStrings]]
-deps = ["DataAPI", "InlineStrings", "Parsers"]
-git-tree-sha1 = "b1be2855ed9ed8eac54e5caff2afcdb442d52c23"
-uuid = "ea10d353-3f73-51f8-a26c-33c1cb351aa5"
-version = "1.4.2"
-
 [[deps.WoodburyMatrices]]
 deps = ["LinearAlgebra", "SparseArrays"]
 git-tree-sha1 = "c1a7aa6219628fcd757dede0ca95e245c5cd9511"
 uuid = "efce3f68-66dc-5838-9240-27a6d6f5f9b6"
 version = "1.0.0"
-
-[[deps.WorkerUtilities]]
-git-tree-sha1 = "cd1659ba0d57b71a464a29e64dbc67cfe83d54e7"
-uuid = "76eceee3-57b5-4d4a-8e66-0e911cebbf60"
-version = "1.6.1"
 
 [[deps.XZ_jll]]
 deps = ["Artifacts", "JLLWrappers", "Libdl"]
@@ -1401,7 +1465,6 @@ version = "17.4.0+2"
 """
 
 # ╔═╡ Cell order:
-# ╟─824e86c2-38de-11f0-2740-b3a1e726f4fb
 # ╟─20b509e1-a08d-4b1e-8b84-8ad753e32c59
 # ╟─e154b0d5-28a6-4e8e-a8a8-c99b85c19bfe
 # ╟─34081d33-9fc7-4546-b5a0-eba0abbebb41
@@ -1412,5 +1475,33 @@ version = "17.4.0+2"
 # ╟─77f6c8cb-0539-4718-9a9b-e250846b8306
 # ╟─1214b755-3ad2-4bda-8070-da5671c53e13
 # ╠═cb8d5f8b-7596-46cc-a06e-cd89f8277d16
+# ╟─871edeff-33e9-4fab-906f-09ed8b52d36c
+# ╟─dbe076e0-858a-4654-919a-48774e96413e
+# ╟─b8a541cf-541a-427b-af40-8fa69e7bd877
+# ╟─c4409d9a-0082-43ea-bfc6-1825bcee1a77
+# ╟─da0c8ab4-ace6-46cb-828e-235ef9a90912
+# ╟─d1380fbe-1245-4e12-b083-7877a70c11d5
+# ╟─563ff29b-8d59-4c14-a8f1-a7cf79300dca
+# ╟─510cc7c6-32c2-4a3f-b6aa-c37cc31e1658
+# ╟─f8b28226-db69-4c7b-99fe-180ae6edbb11
+# ╟─d5e0189d-c989-4f0c-9920-775a55739e0a
+# ╟─91b54482-4259-4888-a542-bc1b528bdbed
+# ╟─2837b63f-0035-4fbe-8ffd-8d01030bb002
+# ╟─d32d751c-96ad-455c-98d1-26cafedd9f7c
+# ╟─59f232c5-c811-486f-b7fa-2b206f4845cb
+# ╟─f0777a1e-b8a1-4e1c-b5bf-205c09ed80f2
+# ╟─081f05bb-462f-4c02-afef-6d74d194f6d7
+# ╟─fdf480f5-2285-4f11-8c2f-87559ce6bfb7
+# ╟─7130a962-ec2d-48a6-a6b8-a4a7516ceec5
+# ╟─0bf26797-b7f9-4ae6-96d5-f51475697d93
+# ╟─fe77436a-1158-498a-9e65-095c05d9400f
+# ╟─2a104456-a06a-40e3-ba99-bc6dd944e7c1
+# ╟─13c93208-9fe5-405e-ae8a-52823d70e2b4
+# ╟─a4da88cf-fe35-4cc8-bf1c-f6fd33ffa70c
+# ╟─86c52aa0-1315-45b6-a3f7-4601b6daa6b1
+# ╟─31edd9b6-e316-437a-bbd8-05478f63913a
+# ╟─97efde25-af37-49ed-a165-c43b802dd5df
+# ╟─1a6116d0-4c54-4b23-ac49-0f18a03747fb
+# ╟─f86d9537-3e96-466a-a251-fd0cb45d5828
 # ╟─00000000-0000-0000-0000-000000000001
 # ╟─00000000-0000-0000-0000-000000000002
