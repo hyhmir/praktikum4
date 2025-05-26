@@ -177,7 +177,7 @@ mosaicview(img1, img3, img2, img4, nrow=2)
 
 # ╔═╡ f0777a1e-b8a1-4e1c-b5bf-205c09ed80f2
 md"""
-Na slikah vidimo karakteristiko tuljave pri različnih frekvencah. Po vrsti (frekveca, fazni zamik): (10ν, 40°), (100ν, 83°), (10kν, 90°), (100kν, -75°)
+Na slikah vidimo karakteristiko tuljave pri različnih frekvencah. Po vrsti (frekveca, fazni zamik): (10Hz, 40°), (100Hz, 83°), (10kHz, 90°), (100kHz, -75°)
 """
 
 # ╔═╡ 081f05bb-462f-4c02-afef-6d74d194f6d7
@@ -1474,7 +1474,7 @@ version = "17.4.0+2"
 # ╟─a188b9c2-a5ce-48d3-a5ab-f3ec4d628a7c
 # ╟─77f6c8cb-0539-4718-9a9b-e250846b8306
 # ╟─1214b755-3ad2-4bda-8070-da5671c53e13
-# ╠═cb8d5f8b-7596-46cc-a06e-cd89f8277d16
+# ╟─cb8d5f8b-7596-46cc-a06e-cd89f8277d16
 # ╟─871edeff-33e9-4fab-906f-09ed8b52d36c
 # ╟─dbe076e0-858a-4654-919a-48774e96413e
 # ╟─b8a541cf-541a-427b-af40-8fa69e7bd877
